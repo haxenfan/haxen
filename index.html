@@ -3,36 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Haxen | Artist</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <title>Works | Haxen</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #f0f0f0;
+      border-right: 1px solid #ccc;
+      padding: 2rem 1rem;
+    }
+    .sidebar a {
+      display: block;
+      margin-bottom: 1rem;
+      color: #111;
+      text-decoration: none;
+      font-family: monospace;
+    }
+    .content {
+      flex: 1;
+      padding: 2rem;
+      font-family: monospace;
+    }
+    .work {
+      display: none;
+    }
+    .work.active {
+      display: block;
+    }
+  </style>
+  <script>
+    function showWork(id) {
+      const works = document.querySelectorAll('.work');
+      works.forEach(w => w.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+    }
+    window.onload = function () {
+      const defaultTag = window.location.hash.replace('#', '') || 'within';
+      showWork(defaultTag);
+    };
+  </script>
 </head>
 <body>
-  <nav>
-<a href="works/">Works</a>
-<a href="wan/">Wan</a>
-<a href="photo/">Photo</a>
-<a href="about/">About</a>
+  <div class="sidebar">
+    <a href="#within" onclick="showWork('within')">Within yet Beyond</a>
+    <a href="#idphoto" onclick="showWork('idphoto')">ID Photo Booth</a>
+    <a href="#monster" onclick="showWork('monster')">Facing the Monster Within</a>
+    <a href="#beyond" onclick="showWork('beyond')">Beyond yet Within</a>
+    <a href="#oversight" onclick="showWork('oversight')">Oversight</a>
+  </div>
 
-  </nav>
-
-  <header>
-    <h1>HAXEN</h1>
-  </header>
-
-  <section id="home">
-    <h2>Welcome</h2>
-    <p>This is the homepage of Haxen, a multidisciplinary artist. Please explore the following sections to discover his works and background.</p>
-    <ul>
-      <li><a href="works/">View Works</a></li>
-      <li><a href="wan/">View Wan Series</a></li>
-      <li><a href="photo/">View Photography</a></li>
-      <li><a href="about/">Learn About Haxen</a></li>
-    </ul>
-  </section>
-
-  <footer>
-    &copy; 2025 Haxen. All rights reserved.
-  </footer>
+  <div class="content">
+    <div id="within" class="work">
+      <h2>Within yet Beyond</h2>
+      <p>Description and media for the project "Within yet Beyond".</p>
+    </div>
+    <div id="idphoto" class="work">
+      <h2>ID Photo Booth</h2>
+      <p>Description and media for the project "ID Photo Booth".</p>
+    </div>
+    <div id="monster" class="work">
+      <h2>Facing the Monster Within</h2>
+      <p>Description and media for the project "Facing the Monster Within".</p>
+    </div>
+    <div id="beyond" class="work">
+      <h2>Beyond yet Within</h2>
+      <p>Description and media for the project "Beyond yet Within".</p>
+    </div>
+    <div id="oversight" class="work">
+      <h2>Oversight</h2>
+      <p>Description and media for the project "Oversight".</p>
+    </div>
+  </div>
 </body>
 </html>
