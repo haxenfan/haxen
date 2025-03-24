@@ -3,96 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Haxen | Artist Portfolio</title>
+  <title>Haxen | Artist</title>
   <style>
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #fff;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f4f4f4;
       color: #222;
     }
     header {
-      background-color: #f5f5f5;
-      padding: 1.5rem;
-      text-align: center;
+      background: url('https://images.unsplash.com/photo-1549887534-3ec93abae07d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+    header h1 {
+      font-size: 4rem;
+      letter-spacing: 3px;
     }
     nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 1rem;
       text-align: center;
-      margin-top: 1rem;
+      z-index: 10;
     }
     nav a {
+      color: white;
       margin: 0 1rem;
       text-decoration: none;
-      color: #444;
       font-weight: bold;
+      font-size: 1rem;
     }
     section {
-      max-width: 800px;
-      margin: 2rem auto;
+      max-width: 960px;
+      margin: 4rem auto;
       padding: 0 1rem;
     }
-    h2 {
-      margin-top: 2rem;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 0.5rem;
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #000;
+      display: inline-block;
+    }
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
     footer {
+      background-color: #222;
+      color: white;
       text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #aaa;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>Haxen 范文瀚</h1>
-    <p>Artist | Visual Explorer | Digital Experimenter</p>
-  </header>
-
   <nav>
-    <a href="#about">About</a>
     <a href="#works">Works</a>
-    <a href="#exhibitions">Exhibitions</a>
+    <a href="#bio">Bio</a>
+    <a href="#cv">CV</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <section id="about">
-    <h2>About</h2>
-    <p>
-      Haxen is a Taiwan-based artist whose work explores the boundaries between image, language, and artificial systems.  
-      His practice spans photography, generative art, coding, and artist books.
-    </p>
+  <header>
+    <h1>HAXEN</h1>
+  </header>
+
+  <section id="bio">
+    <h2>Bio</h2>
+    <p>Haxen is a Taiwan-based multidisciplinary artist whose work explores the boundaries of visual language, artificial systems, and perception. His practice involves photography, generative code, installation, and print-based media.</p>
   </section>
 
   <section id="works">
-    <h2>Works</h2>
-    <p>
-      Selected projects and experiments will be displayed here.  
-      (You can add thumbnails or external links to your projects.)
-    </p>
+    <h2>Selected Works</h2>
+    <p>A collection of Haxen's key projects will be featured here.</p>
   </section>
 
-  <section id="exhibitions">
-    <h2>Exhibitions</h2>
-    <ul>
-      <li>2025 — Ars Electronica Submission, "Water Dream"</li>
-      <li>2024 — Future Media Art Festival, "Singularity"</li>
-      <li>2023 — Collapsing Palace of Memory, TCEF</li>
-    </ul>
+  <section id="cv">
+    <h2>CV</h2>
+    <p>Full curriculum vitae available upon request or listed here for download.</p>
   </section>
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+    <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
     <p>Instagram: <a href="https://instagram.com/yourhandle" target="_blank">@yourhandle</a></p>
   </section>
 
   <footer>
-    &copy; 2025 Haxen 范文瀚. All rights reserved.
+    &copy; 2025 Haxen. All rights reserved.
   </footer>
-
 </body>
 </html>
