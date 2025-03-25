@@ -39,18 +39,19 @@ body {
   color: #111;
 }
 
-
-
 nav {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  font-weight: 300;
-  background-color: white;
-  padding: 1rem;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-  z-index: 999;
+  padding: 1rem 1.5rem;
+  background-color: white; /* 必加，否則會透明 */
+  z-index: 1000; /* 保證在所有內容之上 */
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: 'Tex Gyre Cursor', monospace;
+  font-weight: 400;
 }
 
 nav a {
