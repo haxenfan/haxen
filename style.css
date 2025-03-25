@@ -6,6 +6,7 @@
 
 body {
   font-family: monospace;
+  font-weight: 300;
   background-color: #f4f4f4;
   color: #111;
 }
@@ -14,6 +15,7 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
+  font-weight: 300;
   background-color: white;
   padding: 1rem;
   border-bottom: 1px solid #ccc;
