@@ -52,16 +52,19 @@ section#home {
 }
 
 .works-list img {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  bottom: 3rem; /* 預留給 footer */
   right: 2rem;
-  transform: translateY(-50%);
-  width: 300px;
+  max-width: 33vw;
+  max-height: 80vh;
   height: auto;
+  width: auto;
   display: none;
-  z-index: 2;
+  z-index: 900;
   border: 1px solid #ccc;
+  object-fit: contain;
 }
+
 
 .works-list li:hover img {
   display: block;
