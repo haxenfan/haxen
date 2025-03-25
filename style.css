@@ -108,6 +108,10 @@ nav a {
   font-weight: 600;
   font-size: 1rem;
 }
+nav a:hover {
+  color: rgb(0, 0, 255); /* 藍色 */
+  font-style: italic;
+}
 
 header {
   height: 100vh;
