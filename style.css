@@ -27,6 +27,19 @@
     font-size: 0.9rem;
     padding: 0.8rem 1rem;
   }
+  
+  #nav-container nav a {
+    color: black;
+    text-decoration: none;
+    font-style: normal;
+    transition: color 0.3s ease, font-style 0.3s ease;
+  }
+
+  #nav-container nav a:hover {
+    color: rgb(0, 0, 255); /* 藍色 */
+    font-style: italic;
+  }
+
 
   .works-list img {
     display: none; /* 小螢幕不顯示圖片 */
