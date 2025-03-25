@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Works | Haxen</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../style.css">
-<script src="../script.js" defer></script>
-
+  <script src="../script.js" defer></script>
   <style>
     body {
       display: flex;
@@ -21,10 +19,15 @@
     }
     .sidebar a {
       display: block;
-      color: #ccc;
+      color: #999;
       margin-bottom: 1rem;
       text-decoration: none;
       font-family: monospace;
+      transition: color 0.3s ease;
+    }
+    .sidebar a.active {
+      color: #111;
+      font-weight: bold;
     }
     .content {
       flex: 1;
@@ -41,9 +44,13 @@
   <script>
     function showWork(id) {
       const works = document.querySelectorAll('.work');
+      const links = document.querySelectorAll('.sidebar a');
       works.forEach(w => w.classList.remove('active'));
+      links.forEach(link => link.classList.remove('active'));
       const target = document.getElementById(id);
+      const activeLink = document.querySelector('.sidebar a[href="#' + id + '"]');
       if (target) target.classList.add('active');
+      if (activeLink) activeLink.classList.add('active');
     }
     window.onload = function () {
       const defaultTag = window.location.hash.replace('#', '') || 'within';
@@ -52,7 +59,7 @@
   </script>
 </head>
 <body>
-    <div id="nav-container"></div>
+  <div id="nav-container"></div>
 
   <div class="sidebar">
     <a href="#within" onclick="showWork('within')">Within yet Beyond</a>
