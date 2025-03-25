@@ -55,6 +55,7 @@
   }
 #nav-container nav a:hover {
   color: rgb(0, 0, 255); /* 藍色 */
+  font-weight: 500;
   font-style: italic;
 }
 
