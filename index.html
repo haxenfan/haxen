@@ -6,23 +6,64 @@
   <title>Haxen | Artist</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
+  <style>
+    .works-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem;
+      font-family: monospace;
+    }
+    .works-list li {
+      margin: 2rem 0;
+      position: relative;
+    }
+    .works-list a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .works-list img {
+      position: absolute;
+      top: 0;
+      left: 200px;
+      width: 300px;
+      height: auto;
+      display: none;
+      z-index: 0;
+      border: 1px solid #ccc;
+    }
+    .works-list li:hover img {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <div id="nav-container"></div>
 
-  <header>
-    <h1>HAXEN</h1>
-  </header>
-
   <section id="home">
-    <h2>Welcome</h2>
-    <p>This is the homepage of Haxen, a multidisciplinary artist. Please explore the following sections to discover his works and background.</p>
-    <ul>
-      <li><a href="works/#within">Within yet Beyond</a></li>
-      <li><a href="works/#idphoto">ID Photo Booth</a></li>
-      <li><a href="works/#monster">Facing the Monster Within</a></li>
-      <li><a href="works/#beyond">Beyond yet Within</a></li>
-      <li><a href="works/#oversight">Oversight</a></li>
+    <ul class="works-list">
+      <li>
+        <a href="works/#within">Within yet Beyond</a>
+        <img src="images/within.jpg" alt="Within yet Beyond preview">
+      </li>
+      <li>
+        <a href="works/#idphoto">ID Photo Booth</a>
+        <img src="images/idphoto.jpg" alt="ID Photo Booth preview">
+      </li>
+      <li>
+        <a href="works/#monster">Facing the Monster Within</a>
+        <img src="images/monster.jpg" alt="Facing the Monster Within preview">
+      </li>
+      <li>
+        <a href="works/#beyond">Beyond yet Within</a>
+        <img src="images/beyond.jpg" alt="Beyond yet Within preview">
+      </li>
+      <li>
+        <a href="works/#oversight">Oversight</a>
+        <img src="images/oversight.jpg" alt="Oversight preview">
+      </li>
     </ul>
   </section>
 
