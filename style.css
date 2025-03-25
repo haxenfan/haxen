@@ -53,36 +53,12 @@ body {
   color: #111;
 }
 
+  
 .works-list a {
   font-size: 3.5rem;
 }
-  
-#nav-container nav {
-  flex-wrap: wrap;
-  font-size: 0.9rem;
-  padding: 0.8rem 1rem;
-}
-
-#nav-container nav a {
-  color: black;
-  text-decoration: none;
-  font-style: normal;
-  transition: color 0.3s ease, font-style 0.3s ease;
-}
-#nav-container nav a:hover {
-  color: rgb(0, 0, 255); /* 藍色 */
-  font-weight: 500;
-  font-style: italic;
-}
-
-
 .works-list img {
   display: none; /* 小螢幕不顯示圖片 */
-}
-
-footer {
-  font-size: 0.6rem;
-  padding: 0.4rem 0.8rem;
 }
 
 
@@ -111,6 +87,23 @@ nav a {
 nav a:hover {
   color: rgb(0, 0, 255); /* 藍色 */
 }
+#nav-container nav {
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  padding: 0.8rem 1rem;
+}
+#nav-container nav a {
+  color: black;
+  text-decoration: none;
+  font-style: normal;
+  transition: color 0.3s ease, font-style 0.3s ease;
+}
+#nav-container nav a:hover {
+  color: rgb(0, 0, 255); /* 藍色 */
+  font-weight: 500;
+  font-style: italic;
+}
+
 
 header {
   height: 100vh;
@@ -143,7 +136,7 @@ section p, section li {
 }
 
 footer {
-  position: relative; /* ❗讓它永遠貼底 */
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
