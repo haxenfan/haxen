@@ -89,7 +89,7 @@ nav {
   transition: color 0.3s ease, font-style 0.3s ease;
 }
 #nav-container nav a:hover {
-  color: rgb(0, 0, 255); /* 藍色 */
+  color: rgb(0, 0, 255);
   font-weight: 500;
 }
 
