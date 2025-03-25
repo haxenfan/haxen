@@ -22,7 +22,7 @@
     font-size: 1.8rem;
   }
 
-  .responsive-iframe {
+.responsive-iframe {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%; /* 16:9 比例 */
@@ -40,6 +40,7 @@
   border: none;
 }
 
+
   
   #nav-container nav {
     flex-wrap: wrap;
@@ -53,11 +54,11 @@
     font-style: normal;
     transition: color 0.3s ease, font-style 0.3s ease;
   }
-#nav-container nav a:hover {
-  color: rgb(0, 0, 255); /* 藍色 */
-  font-weight: 500;
-  font-style: italic;
-}
+  #nav-container nav a:hover {
+    color: rgb(0, 0, 255); /* 藍色 */
+    font-weight: 500;
+    font-style: italic;
+  }
 
 
   .works-list img {
