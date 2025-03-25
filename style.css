@@ -106,7 +106,7 @@ footer {
   left: 0;
   width: 100%;
   padding: 0.5rem 1.5rem;
-  font-size: 1.3rem; /* 約為 body 字體的 130% */
+  font-size: 1.3rem; 
   color: #666;
   background: white;
   z-index: 999;
