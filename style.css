@@ -91,10 +91,15 @@ section p, section li {
 }
 
 footer {
-  text-align: center;
-  padding: 3rem 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
   font-size: 0.9rem;
   color: #666;
+  background: white;
+  z-index: 999;
+  text-align: left;
   border-top: 1px solid #ccc;
-  margin-top: 4rem;
 }
