@@ -1,127 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Haxen | Artist</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-  <style>
-    body {
-  margin: 0;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haxen</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif; /* Or your preferred font */
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-section#home {
-  padding: 0;
-}
-body {
-  margin: 0;
-}
+        section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-section#home {
-  padding: 0;
-  margin: 0;
-}
+        section#home {
+            padding: 0;
+            margin: 0;
+            background-color: #fff; /* Example background for home */
+        }
 
-.works-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+        .home-content {
+            padding: 4rem;
+            text-align: center;
+        }
 
-.works-list li {
-  position: relative;
-  line-height: 1.2;
-  padding: 1rem;
-  margin: 0;
-  overflow: hidden;
-  background-color: white;
-  transition: background-color 0.4s ease;
-}
+        .home-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
 
-.works-list li:hover {
-  background-color: rgb(0, 0, 255);
-}
+        .home-content p {
+            font-size: 1.2rem;
+            color: #666;
+        }
 
-.works-list a {
-  text-decoration: none;
-  color: #000;
-  font-size: 2rem;
-  font-weight: 300;
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  transition: color 0.3s ease;
-}
+        .works-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
 
-.works-list li:hover a {
-  color: white;
-}
+        .works-list li {
+            position: relative;
+            line-height: 1.2;
+            padding: 1rem;
+            margin: 0;
+            overflow: hidden;
+            background-color: white;
+            transition: background-color 0.4s ease;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-.works-list img {
-  position: absolute;
-  top: 50%;
-  left: 320px;
-  transform: translateY(-50%);
-  width: 300px;
-  height: auto;
-  display: none;
-  z-index: 2;
-  border: 1px solid #ccc;
-}
+        .works-list li:hover {
+            background-color: blue;
+        }
 
-.works-list li:hover img {
-  display: block;
-}
+        .works-list a {
+            text-decoration: none;
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            transition: color 0.3s ease;
+            padding-right: 1rem;
+        }
 
-  </style>
+        .works-list li:hover a {
+            color: white;
+        }
+
+        .works-list img {
+            position: absolute;
+            top: 50%;
+            left: auto;
+            right: 1rem;
+            transform: translateY(-50%);
+            width: 150px; /* Adjust image size as needed */
+            height: auto;
+            display: none;
+            z-index: 2;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            max-width: 40%; /* Ensure image is not too large within its container */
+        }
+
+        .works-list li:hover img {
+            display: block;
+        }
+
+        /* Example styles for other sections */
+        section#about {
+            background-color: #e0f2f7;
+        }
+
+        section#contact {
+            background-color: #f0f0f0;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .works-list a {
+                font-size: 1.2rem;
+            }
+            .works-list img {
+                width: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="nav-container"></div>
+    <section id="home">
+        <div class="home-content">
+            <h1>Welcome to My Portfolio</h1>
+            <p>A showcase of my recent work and projects.</p>
+        </div>
+    </section>
 
-  <section id="home">
-    <ul class="works-list">
-      <li>
-        <a href="works/#oversight">Oversight</a>
-        <img src="images/oversight.jpg" alt="Oversight preview">
-      </li>
-      <li>
-        <a href="works/#beyondyetwithin">Beyond yet Within</a>
-        <img src="images/beyond.jpg" alt="Beyond yet Within preview">
-      </li>
-      <li>
-        <a href="works/#wewilleventuallybecomesuchalandscape">We Will Eventually Become Such A Landscape</a>
-        <img src="images/wwebsal.jpg" alt="We Will Eventually Become Such A Landscape preview">
-      </li>
-      <li>
-        <a href="works/#withinyetbeyond">Within yet Beyond</a>
-        <img src="images/within.jpg" alt="Within yet Beyond preview">
-      </li>
-      <li>
-        <a href="works/#idphoto">ID Photo Booth</a>
-        <img src="images/idphoto.jpg" alt="ID Photo Booth preview">
-      </li>
-      <li>
-        <a href="works/#monster">Facing the Monster Within</a>
-        <img src="images/monster.jpg" alt="Facing the Monster Within preview">
-      </li>
-      <li>
-        <a href="works/#theta">θ</a>
-        <img src="images/theta.jpg" alt="theta preview">
-      </li> 
-      <li>
-        <a href="works/#systema">System α</a>
-        <img src="images/systema.jpg" alt="System a preview">
-      </li>
-      <li>
-        <a href="works/#systemb">System β</a>
-        <img src="images/systemb.jpg" alt="System b preview">
-      </li>
-    </ul>
-  </section>
+    <section id="works">
+        <h2>My Works</h2>
+        <ul class="works-list">
+            <li>
+                <a href="#">Project One</a>
+                <img src="placeholder-image.jpg" alt="Project One Image">
+            </li>
+            <li>
+                <a href="#">Project Two</a>
+                <img src="placeholder-image.jpg" alt="Project Two Image">
+            </li>
+            <li>
+                <a href="#">Project Three</a>
+                <img src="placeholder-image.jpg" alt="Project Three Image">
+            </li>
+            <li>
+                <a href="#">Project Four</a>
+                <img src="placeholder-image.jpg" alt="Project Four Image">
+            </li>
+            <li>
+                <a href="#">Project Five</a>
+                <img src="placeholder-image.jpg" alt="Project Five Image">
+            </li>
+            <li>
+                <a href="#">Project Six</a>
+                <img src="placeholder-image.jpg" alt="Project Six Image">
+            </li>
+        </ul>
+    </section>
 
-  <footer>
-    &copy; 2025 Haxen. All rights reserved.
-  </footer>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>This is a section where you can write about yourself, your skills, and your experience.</p>
+        <p>You can include details about your background, education, and what you're passionate about.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Feel free to reach out to me for collaborations or inquiries.</p>
+        </section>
+
+    <footer>
+        <p>&copy; 2025 My Portfolio</p>
+    </footer>
+
+    <script>
+        // You can add JavaScript here for interactivity
+    </script>
 </body>
 </html>
