@@ -45,8 +45,8 @@ nav {
   left: 0;
   width: 100%;
   padding: 1rem 1.5rem;
-  background-color: white; /* 必加，否則會透明 */
-  z-index: 1000; /* 保證在所有內容之上 */
+  background-color: #f4f4f4;
+  z-index: 1000;
   display: flex;
   align-items: center;
   gap: 1.5rem;
