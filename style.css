@@ -4,6 +4,41 @@
   box-sizing: border-box;
 }
 
+/* 預設字體尺寸 */
+.works-list a {
+  font-size: 3.5rem;
+}
+
+/* 螢幕寬度小於 1024px，自動縮小字體 */
+@media (max-width: 1024px) {
+  .works-list a {
+    font-size: 2.5rem;
+  }
+}
+
+/* 螢幕寬度小於 768px（平板與手機） */
+@media (max-width: 768px) {
+  .works-list a {
+    font-size: 1.8rem;
+  }
+
+  #nav-container nav {
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .works-list img {
+    display: none; /* 小螢幕不顯示圖片 */
+  }
+
+  footer {
+    font-size: 0.6rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+
 @font-face {
   font-family: 'Tex Gyre Cursor';
   src: url('fonts/texgyrecursor-regular.woff2') format('woff2');
