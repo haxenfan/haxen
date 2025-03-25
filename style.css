@@ -90,16 +90,6 @@ section p, section li {
   line-height: 1.7;
 }
 
-position: fixed;
-  top: 0;
-  width: 100%;
-  font-weight: 300;
-  background-color: white;
-  padding: 1rem;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-}
-
 footer {
   position: fixed;
   bottom: 0;
