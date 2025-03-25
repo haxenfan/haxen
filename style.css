@@ -84,30 +84,18 @@ body {
   }
 }
 
-
-.immersive-stage {
+.iframe-container {
   width: 100%;
-  max-width: 960px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #000; /* 黑色舞台背景 */
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 外框光暈 */
-  transition: transform 0.3s ease;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
 }
 
-.immersive-stage:hover {
-  transform: scale(1.01); /* 微懸浮感 */
-}
-
-.immersive-stage iframe {
+.iframe-container iframe {
   width: 100%;
-  height: 60vh;
+  height: 60vh; /* 可調整，視窗高度的 60% */
   border: none;
-  border-radius: 6px;
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05); /* 內部光暈 */
 }
-
 
 
 nav {
