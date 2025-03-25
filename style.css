@@ -4,18 +4,6 @@
   box-sizing: border-box;
 }
 
-@media (max-width: 1024px) {
-  .works-list a {
-    font-size: 2.5rem;
-  }
-}
-
-/* 螢幕寬度小於 768px（平板與手機） */
-@media (max-width: 768px) {
-  .works-list a {
-    font-size: 1.8rem;
-  }
-
 @font-face {
   font-family: 'Tex Gyre Cursor';
   src: url('fonts/texgyrecursor-regular.woff2') format('woff2');
@@ -43,6 +31,20 @@
   font-weight: 700;
   font-style: italic;
 }
+
+@media (max-width: 1024px) {
+  .works-list a {
+    font-size: 2.5rem;
+  }
+}
+
+/* 螢幕寬度小於 768px（平板與手機） */
+@media (max-width: 768px) {
+  .works-list a {
+    font-size: 1.8rem;
+  }
+}
+
   
 body {
   font-family: 'Tex Gyre Cursor', monospace;
