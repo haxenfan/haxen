@@ -8,46 +8,66 @@
   <script src="script.js" defer></script>
   <style>
     .works-list {
-      list-style: none;
-      padding-left: 2rem; 
-      margin: 2rem;
-    }
-    .works-list li {
-      margin: 1rem 0;
-      position: relative;
-      line-height: 1.2;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      padding: 0.5rem;
-    }
-    .works-list a {
-      text-decoration: none;
-      color: #000;
-      font-size: 2rem;
-      font-weight: 300;
-      position: relative;
-      z-index: 1;
-      display: inline-block;
-      transition: color 0.3s ease;
-    }
-    .works-list img {
-      position: absolute;
-      top: 0;
-      left: 220px;
-      width: 300px;
-      height: auto;
-      display: none;
-      z-index: 0;
-      border: 1px solid #ccc;
-    }
-    .works-list li:hover {
-      background-color: rgb(0, 0, 255);
-    }
-    .works-list li:hover a {
-      color: white;
-    }
-    .works-list li:hover img {
-      display: block;
-    }
+  list-style: none;
+  padding-left: 2rem;
+  margin: 2rem 0;
+}
+
+.works-list li {
+  margin: 1rem 0;
+  position: relative;
+  line-height: 1.2;
+  padding: 0.5rem 2rem;
+  overflow: hidden;
+}
+
+.works-list li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: rgb(0, 0, 255);
+  z-index: 0;
+  transition: width 0.4s ease;
+}
+
+.works-list li:hover::before {
+  width: 100vw;
+}
+
+.works-list a {
+  text-decoration: none;
+  color: #000;
+  font-size: 2rem;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transition: color 0.3s ease;
+  text-align: left;
+}
+
+.works-list img {
+  position: absolute;
+  top: 0;
+  left: 240px;
+  width: 300px;
+  height: auto;
+  display: none;
+  z-index: 1;
+  border: 1px solid #ccc;
+}
+
+.works-list li:hover a {
+  color: white;
+}
+
+.works-list li:hover img {
+  display: block;
+}
+
   </style>
 </head>
 <body>
