@@ -14,6 +14,14 @@
 section#home {
   padding: 0;
 }
+body {
+  margin: 0;
+}
+
+section#home {
+  padding: 0;
+  margin: 0;
+}
 
 .works-list {
   list-style: none;
@@ -24,25 +32,15 @@ section#home {
 .works-list li {
   position: relative;
   line-height: 1.2;
-  padding: 1rem 2rem;
+  padding: 1rem;
   margin: 0;
   overflow: hidden;
+  background-color: white;
+  transition: background-color 0.4s ease;
 }
 
-.works-list li::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
+.works-list li:hover {
   background-color: rgb(0, 0, 255);
-  z-index: 0;
-  transition: width 0.8s ease;
-}
-
-.works-list li:hover::before {
-  width: 100vw;
 }
 
 .works-list a {
@@ -53,21 +51,23 @@ section#home {
   position: relative;
   z-index: 1;
   display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.works-list li:hover a {
+  color: white;
 }
 
 .works-list img {
   position: absolute;
-  top: 0;
-  left: 300px;
+  top: 50%;
+  left: 320px;
+  transform: translateY(-50%);
   width: 300px;
   height: auto;
   display: none;
   z-index: 2;
   border: 1px solid #ccc;
-}
-
-.works-list li:hover a {
-  color: white;
 }
 
 .works-list li:hover img {
