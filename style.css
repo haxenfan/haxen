@@ -4,12 +4,42 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-bolditalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
+
 body {
-  font-family: monospace;
+  font-family: 'Tex Gyre Cursor', monospace;
   font-weight: 300;
   background-color: #f4f4f4;
   color: #111;
 }
+
+
 
 nav {
   position: fixed;
