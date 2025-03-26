@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Tex Gyre Cursor';
+  src: url('fonts/texgyrecursor-bolditalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .works-list a {
+    font-size: 2.5rem;
+  }
+}
+
+/* 螢幕寬度小於 768px（平板與手機） */
+@media (max-width: 768px) {
+  .works-list a {
+    font-size: 1.8rem;
+  }
+}
+
+  
+body {
+  font-family: 'Tex Gyre Cursor', monospace;
+  font-weight: 300;
+  background-color: #f4f4f4;
+  color: #111;
+}
+
+  
+.works-list a {
+  font-size: 3.5rem;
+}
+.works-list img {
+  display: none; /* 小螢幕不顯示圖片 */
+}
+
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background-color: #f4f4f4;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: 'Tex Gyre Cursor', monospace;
+  font-weight: 400;
+}
+
+#nav-container nav {
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  padding: 0.8rem 1rem;
+}
+#nav-container nav a {
+  color: black;
+  text-decoration: none;
+  font-style: normal;
+  transition: color 0.3s ease, font-style 0.3s ease;
+}
+#nav-container nav a:hover {
+  color: rgb(0, 0, 255);
+}
+
+
+header {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eaeaea;
+}
+
+header h1 {
+  font-size: 5rem;
+  letter-spacing: 2px;
+}
+
+section {
+  max-width: 720px;
+  margin: 5rem auto;
+  padding: 0 1rem;
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #999;
+}
+
+section p, section li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.2rem 1rem;
+  font-size: 0.8rem;
+  color: black;
+  background-color: #f4f4f4;
+  z-index: 1000;
+  text-align: right;
+  font-family: 'Tex Gyre Cursor', monospace;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
