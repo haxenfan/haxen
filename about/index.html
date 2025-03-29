@@ -9,64 +9,74 @@
 <body>
   <div id="nav-container"></div>
 
-  <main>
-    <h1>About</h1>
+  <about>
+    <main>
+      <h1>About</h1>
+    
+      <!-- 切換按鈕 -->
+      <div class="about-tabs">
+        <button onclick="toggleAboutSection('cv') " class="active">CV</button>
+        <button onclick="toggleAboutSection('bio')">Bio</button>
+      </div>
+  
+    
+      <!-- CV 區塊 -->
+      <section id="cv-section" class="about-section active">
 
-    <section>
-      <h2>Bio</h2>
-      <p>Haxen is a multidisciplinary artist whose work navigates the intersections of code, photography, and print. He is particularly drawn to language, systems, boundaries, and perception, working across digital and analog media. His practice spans from generative coding to artist books and exhibitions rooted in contemporary technological reflections.</p>
-    </section>
-
-    <section>
-      <h2>CV</h2>
-      <p><strong>Haxen Fan (Wun-Han, Fan)</strong><br>
-      Artist, Photographer, Software Engineer<br>
-      Born 1998, Taichung, Taiwan<br>
-      Lives and works in Taipei, Taiwan</p>
-
-      <h3>Work Experience</h3>
-      <ul>
-        <li>2022–Present — Artist working with code, photography and printmaking</li>
-        <li>2023–2024 — Docent, Taiwan Contemporary Culture Lab (C-LAB)</li>
-        <li>2021–2022 — Brand Consultant, Verite Consulting International (VCI)</li>
-        <li>2020–2021 — Freelancer, visual design and exhibition spatial design</li>
-      </ul>
-
-      <h3>Education</h3>
-      <ul>
-        <li>2016–2021 — B.A. in Design (Product and Interior Design), National Taiwan Normal University</li>
-      </ul>
-
-      <h3>Self-Published Artist Books</h3>
-      <ul>
-        <li>2024 — Within yet Beyond</li>
-        <li>2024 — ID Photo Booth</li>
-        <li>2024 — Facing the Monster Within</li>
-      </ul>
-
-      <h3>Selected Group Exhibitions</h3>
-      <ul>
-        <li>2024 — Taipei Art Book Fair, Taipei</li>
-        <li>2024–2025 — My Reality, Shanghai</li>
-        <li>2024 — Natural Growth, Shanghai</li>
-        <li>2022 — If You Are Reading Me, Taichung</li>
-      </ul>
-
-      <h3>Awards</h3>
-      <ul>
-        <li>2023 — Selected, Julius Baer Next Generation Art Prize</li>
-        <li>2021 — Selected Paper Session, Taiwan Association of Computer-Human Interaction</li>
-        <li>2021 — Selected Poster, The 13th ACM Conference on Creativity & Cognition</li>
-        <li>2021 — Honorable Mention, National Palace Museum Online Curator Program</li>
-        <li>2020 — Honorable Mention, NTNU Department of Design Graduation Show</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:haxen.obj.int@gmail.com">haxen.obj.int@gmail.com</a></p>
-      <p>Instagram: <a href="https://www.instagram.com/haxen.fan/" target="_blank">@yourhandle</a></p>
-    </section>
-  </main>
+        <p><strong>Haxen Fan (Wun-Han, Fan)</strong><br>
+          - Artist, Photographer, Software Engineer<br>
+          Born 1998, Taichung, Taiwan<br>
+          Lives and works in Taipei, Taiwan</p>
+        <br>
+        <p><strong>Work Experience</strong></p>
+        <ul>
+          <li>2022–Present — Artist working with code, photography and printmaking</li>
+          <li>2023–2024 — Docent, Taiwan Contemporary Culture Lab (C-LAB)</li>
+          <li>2021–2022 — Brand Consultant, Verite Consulting International (VCI)</li>
+          <li>2020–2021 — Freelancer, visual design and exhibition spatial design</li>
+        </ul>
+        <br>
+        <p><strong>Education</strong></p>
+        <ul>
+          <li>2016–2021 — B.A. in Design, National Taiwan Normal University</li>
+        </ul>
+        <br>
+        <p><strong>Self-Published Artist Books</strong></p>
+        <ul>
+          <li>2024 — Within yet Beyond</li>
+          <li>2024 — ID Photo Booth</li>
+          <li>2024 — Facing the Monster Within</li>
+        </ul>
+        <br>
+        <p><strong>Selected Group Exhibitions</strong></p>
+        <ul>
+          <li>2024 — Taipei Art Book Fair, Taipei</li>
+          <li>2024–2025 — My Reality, Shanghai</li>
+          <li>2024 — Natural Growth, Shanghai</li>
+          <li>2022 — If You Are Reading Me, Taichung</li>
+        </ul>
+        <br>
+        <p><strong>Awards</strong></p>
+        <ul>
+          <li>2023 — Selected, Julius Baer Next Generation Art Prize</li>
+          <li>2021 — Selected Paper Session, TACHI</li>
+          <li>2021 — Selected Poster, ACM C&C</li>
+          <li>2021 — Honorable Mention, National Palace Museum Curator Program</li>
+          <li>2020 — Honorable Mention, NTNU Design Graduation Show</li>
+        </ul>
+      </section>
+        <!-- Bio 區塊 -->
+        <section id="bio-section" class="about-section">
+    
+          <p>Haxen is a multidisciplinary artist whose work navigates the intersections of code, photography, and print. He is particularly drawn to language, systems, boundaries, and perception, working across digital and analog media. His practice spans from generative coding to artist books and exhibitions rooted in contemporary technological reflections.</p>
+        </section>
+      <section>
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:haxen.obj.int@gmail.com">haxen.obj.int@gmail.com</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/haxen.fan/" target="_blank">@haxenfan</a></p>
+      </section>
+    </main>
+    
+  </about>
 </body>
 </html>
