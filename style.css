@@ -302,7 +302,8 @@ body {
   font-size: 0.6rem;
   line-height: 1.8;
   padding: 1rem 0rem 1rem 0rem;
-  /* color: rgba(0, 0, 255, 1); */
+  margin-left: 0; /* 确保文字左对齐 */
+  text-align: left; /* 确保文字左对齐 */
 }
 
 /* 添加carousel-wrapper样式，用于统一布局 */
@@ -315,15 +316,14 @@ body {
 .carousel-container {
   position: relative;
   width: 100%;
-  height: 480px;
-  overflow: hidden;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background: #f4f4f4;  
+  height: auto;
+  max-height: 100vh;
+  overflow: visible;
+  display: block;
+  background: transparent;  
   margin: 0;
-  max-width: 100%;
-  border-radius: 2px;
+  padding: 0;
+  text-align: left; /* 确保内容左对齐 */
 }
 
 /* 统一边距设置 */
@@ -338,51 +338,61 @@ body {
 
 .carousel-slide {
   position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 100%; /* 确保不会溢出父容器 */
+  display: block;
+  height: auto;
+  width: 100%; 
+  margin: 0;
+  padding: 0;
+  text-align: left; /* 确保内容左对齐 */
 }
 
-/* 主圖圖片設定：置左 + 完整顯示 + 等比例縮放 */
 .carousel-slide img {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  max-height: 100%;
+  display: none;
+  max-height: 90vh;
   max-width: 100%;
   width: auto;
   height: auto;
+  border: 3px solid #f4f4f4;
   object-fit: contain;
   opacity: 0;
   transition: opacity 0.6s ease;
-  pointer-events: none;
-  border: 3px solid #f4f4f4; /* 添加3px边框，颜色与背景相同，创造内边框效果 */
+  margin: 0;
+  padding: 0;
+  float: left; /* 使图片左浮动 */
 }
 
 .carousel-slide img.active {
+  display: block;
   opacity: 1;
   pointer-events: auto;
 }
 
-/* 确保边框在横向和纵向图片上都保持一致 */
-.carousel-slide img[data-orientation="landscape"],
-.carousel-slide img[data-orientation="portrait"] {
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  border: 3px solid #f4f4f4;
+/* 适配不同方向的图片 */
+.carousel-slide img[data-orientation="landscape"] {
+  width: 100%;
+  height: auto;
+  float: left; /* 确保横向图片左对齐 */
 }
 
-/* 縮圖列 */
+.carousel-slide img[data-orientation="portrait"] {
+  width: auto;
+  height: auto;
+  max-height: 90vh;
+  margin: 0; /* 移除自动居中 */
+  float: left; /* 确保纵向图片左对齐 */
+}
+
+/* 缩略图容器左对齐 */
 .thumbnail-container {
   display: flex;
-  justify-content: flex-start; 
-  align-items: flex-start; /* 确保缩略图从顶部开始排列 */
-  margin-top: 10px; /* 与carousel-container底部间距保持一致 */
+  justify-content: flex-start; /* 左对齐 */
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 4px;
+  margin-top: 10px;
   width: 100%;
+  max-width: 100%;
+  clear: both; /* 确保在浮动元素下方显示 */
 }
 
 .thumbnail {
@@ -431,6 +441,17 @@ body {
   max-height: 80vh;
   object-fit: contain;
   transition: opacity 0.3s ease;
+}
+
+/* 全屏模式下的横向和纵向图片 */
+.fullscreen-slide img[data-orientation="landscape"] {
+  width: 96vw;
+  height: auto;
+}
+
+.fullscreen-slide img[data-orientation="portrait"] {
+  width: auto;
+  height: 80vh;
 }
 
 .fullscreen-thumbnails {
@@ -610,7 +631,11 @@ about a:hover {
   transform: translateY(0);
 }
 
-
+h1, h2, h3, p {
+  text-align: left; /* 确保所有标题和段落都左对齐 */
+  margin-left: 0;
+  padding-left: 0;
+}
 
 /* --------- Media Queries --------- */
 
@@ -649,12 +674,12 @@ about a:hover {
 
   .sidebar {
     display: flex;
-    flex-wrap: wrap; /* ✅ 讓橫向排但能自動換行 */
+    flex-wrap: wrap;
     justify-content: flex-start;
     width: 100%;
     padding: 4rem 1rem 0.5rem;
     background-color: #f4f4f4;
-    position: relative; /* ✅ 不再固定在左邊 */
+    position: relative;
     top: 0;
     z-index: 10;
     border-bottom: 1px solid #ccc;
@@ -675,13 +700,13 @@ about a:hover {
   .sidebar a.active {
     font-size: 0.7rem;
     color: transparent;
-  text-shadow:
-    0 0 6px rgb(255,255,255, 0.7),
-    0 0 12px rgba(255,255,255, 1),
-    0 0 24px rgba(0,0,255, 1),
-    0 0 32px rgba(255,255,255, 0.85),
-    0 0 42px rgba(255,255,255, 0.9),
-    0 0 152px rgba(0, 0, 255, 1);
+    text-shadow:
+      0 0 6px rgb(255,255,255, 0.7),
+      0 0 12px rgba(255,255,255, 1),
+      0 0 24px rgba(0,0,255, 1),
+      0 0 32px rgba(255,255,255, 0.85),
+      0 0 42px rgba(255,255,255, 0.9),
+      0 0 152px rgba(0, 0, 255, 1);
   }
 
   about {
@@ -702,8 +727,9 @@ about a:hover {
   about li {
     font-size: 0.7rem;
   }
+  
   body {
-    flex-direction: column; /* ✅ 主體垂直排列，sidebar 在上方 */
+    flex-direction: column;
   }
 
   .content {
@@ -711,20 +737,30 @@ about a:hover {
     flex: 1;
   }
 
-  .carousel-container {
-    height: 360px; /* 减小高度 */
+  /* 轮播和缩略图移动样式 */
+  .carousel-slide img {
+    max-height: 70vh;
+    border-width: 2px;
   }
   
-  .carousel-container + .thumbnail-container {
-    margin-top: 8px; /* 成比例缩小间距 */
+  .carousel-slide img[data-orientation="portrait"] {
+    width: auto;
+    max-width: 100%;
+    float: left;
+    margin: 0;
   }
   
-  .work .carousel-container {
-    margin-bottom: 8px;
+  .carousel-slide img[data-orientation="landscape"] {
+    width: 100%;
+    height: auto;
+    float: left;
   }
   
   .thumbnail-container {
-    gap: 3px; /* 缩小间距 */
+    gap: 3px;
+    width: 100%;
+    justify-content: flex-start;
+    clear: both;
   }
   
   .thumbnail {
