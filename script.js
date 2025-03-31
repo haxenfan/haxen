@@ -150,6 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
       slides.forEach((img, i) => img.classList.toggle("active", i === index));
       thumbnails.forEach((thumb, i) => thumb.classList.toggle("active", i === index));
       currentIndex = index;
+      
+      // 不再需要手动调整缩略图容器宽度
     }
 
     function goToNext() {
