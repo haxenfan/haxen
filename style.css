@@ -326,10 +326,7 @@ body {
   text-align: left; /* 确保内容左对齐 */
 }
 
-/* 统一边距设置 */
-.carousel-container + .thumbnail-container {
-  margin-top: 10px; /* 固定与carousel-container的距离 */
-}
+
 
 /* 确保所有作品都使用一致的间距 */
 .work .carousel-container {
@@ -365,6 +362,7 @@ body {
   display: block;
   opacity: 1;
   pointer-events: auto;
+  
 }
 
 /* 适配不同方向的图片 */
@@ -372,24 +370,25 @@ body {
   width: 100%;
   height: auto;
   float: left; /* 确保横向图片左对齐 */
+  
 }
 
 .carousel-slide img[data-orientation="portrait"] {
   width: auto;
   height: auto;
   max-height: 90vh;
-  margin: 0; /* 移除自动居中 */
+  margin-bottom: 2rem; /* 移除自动居中 */
   float: left; /* 确保纵向图片左对齐 */
 }
 
 /* 缩略图容器左对齐 */
 .thumbnail-container {
   display: flex;
-  justify-content: flex-start; /* 左对齐 */
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 10px;
+  margin-top: 5px; /* 增加默认上边距 */
   width: 100%;
   max-width: 100%;
   clear: both; /* 确保在浮动元素下方显示 */
@@ -404,7 +403,7 @@ body {
   opacity: 0.6;
   transition: opacity 0.3s ease;
   justify-content: center;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   background: #eee;
 }
 
@@ -756,7 +755,12 @@ h1, h2, h3, p {
     float: left;
   }
   
+  .carousel-container + .thumbnail-container {
+    margin-top: 12px; /* 在移动设备上稍微减小但仍保持较大间距 */
+  }
+  
   .thumbnail-container {
+    margin-top: 12px;
     gap: 3px;
     width: 100%;
     justify-content: flex-start;
