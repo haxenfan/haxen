@@ -1,3 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Works | Haxen</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <script src="../script.js" defer></script>
+  <!-- 直接处理URL hash的简单脚本 -->
+  <script>
+    // 在页面完全加载后执行
+    window.addEventListener('load', function() {
+      // 获取URL中的hash值
+      const hash = window.location.hash.substring(1);
+      
+      if (hash) {
+        // 检查对应ID的元素是否存在
+        const targetWork = document.getElementById(hash);
+        
+        if (targetWork) {
+          console.log("Direct hash handler: Showing work with ID:", hash);
+          
+          // 隐藏所有作品
+          document.querySelectorAll(".work").forEach(work => {
+            work.classList.remove("active");
+            work.style.display = "none";
+          });
+          
+          // 显示目标作品
+          targetWork.classList.add("active");
+          targetWork.style.display = "block";
+          
+          // 更新侧边栏状态
+          document.querySelectorAll(".sidebar a").forEach(link => {
+            link.classList.remove("active");
+          });
+          
+          const activeLink = document.querySelector(`.sidebar a[href="#${hash}"]`);
+          if (activeLink) {
+            activeLink.classList.add("active");
+          }
+        }
+      }
+    });
+  </script>
+
+ 
+</head>
+<body>
+  <div id="nav-container"></div>
+  <div class="fullscreen-viewer">
+    <span class="close-btn">&times;</span>
+    <div class="fullscreen-slide"></div>
+    <div class="fullscreen-thumbnails"></div>
+  </div>
+  
+<div class="sidebar">
+  <a href="#oversight" >Oversight</a>
+  <a href="#beyondyetwithin" >Beyond yet Within</a>
+  <a href="#wwebsal" >We Will Eventually Become Such A Landscape</a>
+  <a href="#surfacetension" >Surface Tension</a>
+  <a href="#nontree" >Nontree</a>
+  <a href="#drift" >Drift</a>
+  <a href="#withinyetbeyond" >Within yet Beyond</a>
+  <a href="#idphoto" >ID Photo Booth</a>
+  <a href="#monster" >Facing the Monster Within</a>
+  <a href="#theta" >θ</a>
+  <a href="#systemb" >System β</a>
+  <a href="#systema" >System α</a>
+</div>  
+<div class="content">
+  <div id="oversight" class="work">    
+    <h1>Oversight</h1>
+    <br>
+    
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">
+          <img src="/image/oversight/os0.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os1.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os2.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os3.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os4.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os5.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os6.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os7.jpg"  alt="..." loading="lazy">
+          <img src="/image/oversight/os8.jpg"  alt="..." loading="lazy">        
+        </div>
+      </div>
+      <div class="thumbnail-container">
+        <img src="/image/oversight/os0.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os1.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os2.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os3.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os4.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os5.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os6.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os7.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/oversight/os8.jpg"  alt="..." loading="lazy" class="thumbnail">
+      </div>
+    </div>
+
+    <div class="work-content">      
+      <br>
+      <p>They watched, I watched, it watches, the other watched,</p>
+      <p> and now we are watching.</p>
+      <br>
+      <p>Our gazes intersect through Google's eagle eye,</p>
+      <p>behind these gazes, we are both different and the same —</p>
+      <p>opposing poles of the power machine,</p>
+      <p>yet equally its interchangeable components.</p>
+      <br>
+      <p>The deliberately erased faces become ghosts of the digital world,</p>
+      <p>fuel for constructing the other,</p>
+      <p>yet also the very essence of reality in the real world.</p>
+      <br>
+      <p>Reality is torn apart within the operation of the power machine,</p>
+      <p>reality reveals the fractures within the machine itself.</p>
+      <br>
+      <p>As the machine turns its gaze back upon its own broken remnants,</p>
+      <p>we peer through the cracks of reality,</p>
+      <p>endlessly positioning ourselves within the power dynamics of the image.</p>
+    </div>
+  </div>
+
+  <div id="beyondyetwithin" class="work">    
+    <h1>Beyond yet Within</h1>
+    <div class="work-content">     
+      <br>    
+    </div>  
+    <div class="immersive-stage">
+      <iframe src="https://www.artsteps.com/embed/67bddd9f045df062438556aa/560/315" allowfullscreen loading="lazy"></iframe>
+    </div>    
+    <p></p>
+  </div>
+
+  <div id="wwebsal" class="work">
+    <h1>We Will Eventually Become Such A Landscape</h1>
+    <div class="work-content">      
+      <br>
+      <h3 style="color: rgba(0,0,255);">Where language fractures, nothing remains.</h3>
+    </div>  
+    <div class="immersive-stage">
+      <iframe src="https://www.artsteps.com/embed/67c11b7325373d1c912e2546/560/315"  allowfullscreen loading="lazy"></iframe>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">
+          <img src="/image/wwebsal/wl0.webp" alt="..." loading="lazy">
+          <img src="/image/wwebsal/wl1.webp" alt="..." loading="lazy">
+          <img src="/image/wwebsal/wl2.webp" alt="..." loading="lazy">
+          <img src="/image/wwebsal/wl3.webp" alt="..." loading="lazy">    
+          <img src="/image/wwebsal/wl4.webp" alt="..." loading="lazy">
+          <img src="/image/wwebsal/wl5.webp" alt="..." loading="lazy">
+          <img src="/image/wwebsal/wl6.webp" alt="..." loading="lazy">
+          <img src="/image/wwebsal/wl7.webp" alt="..." loading="lazy">    
+          <img src="/image/wwebsal/wl8.webp" alt="..." loading="lazy">   
+        </div>
+      </div>
+      <div class="thumbnail-container">
+        <img src="/image/wwebsal/wl0.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl1.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl2.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl3.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl4.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl5.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl6.webp" alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/wwebsal/wl7.webp" alt="..." loading="lazy" class="thumbnail">    
+        <img src="/image/wwebsal/wl8.webp" alt="..." loading="lazy" class="thumbnail">   
+      </div>
+    </div>
+  </div>
+
+  <div id="nontree" class="work">
+    <h1>Nontree</h1>
+    <div class="work-content">      
+      <br>
+      <p>Description and media for the project "Nontree".</p>
+    </div>  
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">
+          <img src="/image/nontree/tree1.jpeg"  alt="..." loading="lazy">
+          <img src="/image/nontree/tree2.jpeg"  alt="..." loading="lazy">
+          <img src="/image/nontree/tree3.jpeg"  alt="..." loading="lazy">    
+          <img src="/image/nontree/tree4.jpeg"  alt="..." loading="lazy">
+          <img src="/image/nontree/tree5.jpeg"  alt="..." loading="lazy">        
+          <img src="/image/nontree/tree7.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree8.jpeg"  alt="..." loading="lazy">
+          <img src="/image/nontree/tree9.jpeg"  alt="..." loading="lazy">
+          <img src="/image/nontree/tree10.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree11.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree12.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree13.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree14.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree15.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree16.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree17.jpeg"  alt="..." loading="lazy"> 
+          <img src="/image/nontree/tree18.jpeg"  alt="..." loading="lazy">           
+        </div>
+      </div>
+      <div class="thumbnail-container">
+        <img src="/image/nontree/tree1.jpeg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/nontree/tree2.jpeg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/nontree/tree3.jpeg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/nontree/tree4.jpeg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/nontree/tree5.jpeg"  alt="..." loading="lazy" class="thumbnail">      
+        <img src="/image/nontree/tree7.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree8.jpeg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/nontree/tree9.jpeg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/nontree/tree10.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree11.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree12.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree13.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree14.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree15.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree16.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree17.jpeg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/nontree/tree18.jpeg"  alt="..." loading="lazy" class="thumbnail">         
+      </div>  
+    </div>      
+  </div>
+
+  <div id="surfacetension" class="work">
+    <h1>Surface Tension</h1>
+    <div class="work-content">      
+      <br>
+      <p>Description and media for the project "Surface Tension".</p>      
+    </div>  
     <div class="carousel-wrapper">
       <div class="carousel-container">
         <div class="carousel-slide">
@@ -42,3 +275,250 @@
         <img src="/image/surfacetension/sft19.jpg"  alt="..." loading="lazy" class="thumbnail">       
       </div>  
     </div>  
+  </div>
+
+  <div id="drift" class="work">
+    <h1>Drift</h1>
+    <div class="work-content">      
+      <br>
+      <p>Description and media for the project "Drift".</p>
+    </div> 
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">
+          <img src="/image/drift/drift1.jpg"  alt="..." loading="lazy">
+          <img src="/image/drift/drift2.jpg"  alt="..." loading="lazy">
+          <img src="/image/drift/drift3.jpg"  alt="..." loading="lazy">    
+          <img src="/image/drift/drift4.jpg"  alt="..." loading="lazy">
+          <img src="/image/drift/drift5.jpg"  alt="..." loading="lazy">        
+          <img src="/image/drift/drift7.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift8.jpg"  alt="..." loading="lazy">
+          <img src="/image/drift/drift9.jpg"  alt="..." loading="lazy">
+          <img src="/image/drift/drift10.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift11.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift12.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift13.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift14.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift15.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift16.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift17.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift18.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/drift/drift19.jpg"  alt="..." loading="lazy">         
+        </div>
+      </div>
+      <div class="thumbnail-container">
+        <img src="/image/drift/drift1.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/drift/drift2.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/drift/drift3.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/drift/drift4.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/drift/drift5.jpg"  alt="..." loading="lazy" class="thumbnail">      
+        <img src="/image/drift/drift7.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift8.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/drift/drift9.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/drift/drift10.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift11.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift12.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift13.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift14.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift15.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift16.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift17.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift18.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/drift/drift19.jpg"  alt="..." loading="lazy" class="thumbnail">       
+      </div>  
+    </div>  
+  </div>
+
+  <div id="withinyetbeyond" class="work">
+    <h1>Within yet Beyond</h1>
+    <div class="immersive-stage">
+      <iframe src="https://www.artsteps.com/embed/67c6c4fdb06d9b337068269b/560/315" allowfullscreen loading="lazy" ></iframe>
+    </div>    
+    <br>  
+    <br> 
+    <br>  
+    <div class="work-content">            
+      <h2>Artist's book</h2>
+    </div>  
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">
+          <img src="/image/withinyetbeyond/wyb1.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb2.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb3.jpg"  alt="..." loading="lazy">    
+          <img src="/image/withinyetbeyond/wyb4.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb5.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb6.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb7.jpg"  alt="..." loading="lazy"> 
+          <img src="/image/withinyetbeyond/wyb8.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb9.jpg"  alt="..." loading="lazy">
+          <img src="/image/withinyetbeyond/wyb10.jpg"  alt="..." loading="lazy"> 
+        </div>
+      </div>
+      <div class="thumbnail-container">
+        <img src="/image/withinyetbeyond/wyb1.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb2.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb3.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb4.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb5.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb6.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb7.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+        <img src="/image/withinyetbeyond/wyb8.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb9.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/withinyetbeyond/wyb10.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      </div>  
+    </div>  
+  </div>
+  <div id="idphoto" class="work">
+    <h1>ID Photo Booth</h1>  
+      <br>
+      <div class="work-content">            
+        <p>Description and media for the project "ID Photo Booth".</p>
+      </div>       
+      <br>  
+      <br> 
+      <br>  
+      <div class="work-content">            
+        <h2>Artist's book</h2>
+      </div>      
+    
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">        
+          <img src="/image/idPhotoBooth/idphoto1.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto2.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto3.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto4.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto5.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto6.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto7.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto8.jpg"  alt="..." loading="lazy">        
+          <img src="/image/idPhotoBooth/idphoto9.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto10.jpg"  alt="..." loading="lazy">
+          <img src="/image/idPhotoBooth/idphoto11.jpg"  alt="..." loading="lazy">        
+       
+        </div>
+      </div>
+      <div class="thumbnail-container">      
+        <img src="/image/idPhotoBooth/idphoto1.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto2.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto3.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto4.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto5.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto6.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto7.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto8.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto9.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto10.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/idPhotoBooth/idphoto11.jpg"  alt="..." loading="lazy" class="thumbnail">  
+      </div>
+    </div>
+  </div>
+
+  <div id="monster" class="work">
+    <h1>Facing the Monster Within</h1>
+    <div class="work-content">      
+      <br>
+      <p>Description and media for the project "Facing the Monster Within".</p>
+      <br>  
+      <br> 
+      <br>
+      <h2>Artist's book</h2>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-container">
+        <div class="carousel-slide">        
+          <img src="/image/facingMonster/fm0.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm1.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm2.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm3.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm4.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm5.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm6.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm7.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm8.jpg"  alt="..." loading="lazy">        
+          <img src="/image/facingMonster/fm9.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm10.jpg"  alt="..." loading="lazy">
+          <img src="/image/facingMonster/fm11.jpg"  alt="..." loading="lazy">        
+       
+        </div>
+      </div>
+      <div class="thumbnail-container">      
+        <img src="/image/facingMonster/fm0.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm1.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm2.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm3.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm4.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm5.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm6.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm7.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm8.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm9.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm10.jpg"  alt="..." loading="lazy" class="thumbnail">
+        <img src="/image/facingMonster/fm11.jpg"  alt="..." loading="lazy" class="thumbnail">  
+      </div>
+    </div>
+  </div>
+
+  <div id="theta" class="work">
+    <h1>θ</h1>
+    <div class="work-content">      
+      <p style="color: rgba(0,0,255);margin-top: 0.35rem">NFT, minted on Tezos on fxhash</p>
+      <br>
+      <br>     
+    </div>
+  
+    <a href="https://beta.fxhash.xyz/project/8-4" target="_blank" class="preview-link-fx">
+      <img src="/image/preview/theta.jpg" alt="System A preview" class="preview-image-fx" />
+    </a>
+    <p style="font-size: 0.65rem; margin-top: 1.25rem;">
+      View this generative work on fxhash, Which captured by the meidum of NFT →
+    </p>
+    <p>           
+      <a href="https://beta.fxhash.xyz/project/8-4" style="font-size: 0.5rem; color: blue;"target="_blank">beta.fxhash.xyz/theta</a>
+    </p>   
+  </div>
+ 
+
+  <div id="systemb" class="work">
+    <h1>System β</h1>
+    <div class="work-content">      
+      <p style="color: rgba(0,0,255);margin-top: 0.35rem">NFT, minted on Tezos on fxhash</p>
+      <br>
+      <br>      
+    </div>
+     
+    <a href="https://beta.fxhash.xyz/project/system-b" target="_blank" class="preview-link-fx">
+      <img src="/image/preview/systemb.jpg" alt="System A preview" class="preview-image-fx" />
+    </a>
+    <p style="font-size: 0.65rem; margin-top: 1.25rem;">
+      View this generative work on fxhash, Which captured by the meidum of NFT →
+    </p>
+    <p>
+      <a href="https://beta.fxhash.xyz/project/system-b" style="font-size: 0.5rem; color: blue;"target="_blank">beta.fxhash.xyz/project/system-b</a>
+    </p>   
+  </div>
+
+
+  <div id="systema" class="work">
+    <h1>System α</h1>
+    <div class="work-content">      
+      <p style="color: rgba(0,0,255);margin-top: 0.35rem">NFT, minted on Tezos on fxhash</p>
+      <br>
+      <br>      
+    </div>  
+     
+    <a href="https://beta.fxhash.xyz/project/system-a" target="_blank" class="preview-link-fx">
+      <img src="/image/preview/systema.jpg" alt="System A preview" class="preview-image-fx" />
+    </a>
+    <p style="font-size: 0.65rem; margin-top: 1.25rem;">
+      View this generative work on fxhash, Which captured by the meidum of NFT →</p>
+      <p>
+      <a href="https://beta.fxhash.xyz/project/system-a" style="font-size: 0.5rem; color: blue;"target="_blank">beta.fxhash.xyz/project/system-a</a>
+    </p>   
+  </div>  
+  </div>
+</div>
+</body>
+</html>
