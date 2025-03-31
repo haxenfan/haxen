@@ -6,6 +6,44 @@
   <title>Works | Haxen</title>
   <link rel="stylesheet" href="../style.css">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <script src="../script.js" defer></script>
+  <!-- 直接处理URL hash的简单脚本 -->
+  <script>
+    // 在页面完全加载后执行
+    window.addEventListener('load', function() {
+      // 获取URL中的hash值
+      const hash = window.location.hash.substring(1);
+      
+      if (hash) {
+        // 检查对应ID的元素是否存在
+        const targetWork = document.getElementById(hash);
+        
+        if (targetWork) {
+          console.log("Direct hash handler: Showing work with ID:", hash);
+          
+          // 隐藏所有作品
+          document.querySelectorAll(".work").forEach(work => {
+            work.classList.remove("active");
+            work.style.display = "none";
+          });
+          
+          // 显示目标作品
+          targetWork.classList.add("active");
+          targetWork.style.display = "block";
+          
+          // 更新侧边栏状态
+          document.querySelectorAll(".sidebar a").forEach(link => {
+            link.classList.remove("active");
+          });
+          
+          const activeLink = document.querySelector(`.sidebar a[href="#${hash}"]`);
+          if (activeLink) {
+            activeLink.classList.add("active");
+          }
+        }
+      }
+    });
+  </script>
 
  
 </head>
@@ -20,8 +58,9 @@
 <div class="sidebar">
   <a href="#oversight" >Oversight</a>
   <a href="#beyondyetwithin" >Beyond yet Within</a>
-  <a href="#wewilleventuallybecomesuchalandscape" >We Will Eventually Become Such A Landscape</a>
+  <a href="#wwebsal" >We Will Eventually Become Such A Landscape</a>
   <a href="#surfacetension" >Surface Tension</a>
+  <a href="#nontree" >Nontree</a>
   <a href="#drift" >Drift</a>
   <a href="#withinyetbeyond" >Within yet Beyond</a>
   <a href="#idphoto" >ID Photo Booth</a>
@@ -94,7 +133,7 @@
     <p></p>
   </div>
 
-  <div id="wewilleventuallybecomesuchalandscape" class="work">
+  <div id="wwebsal" class="work">
     <h1>We Will Eventually Become Such A Landscape</h1>
     <div class="work-content">      
       <br>
@@ -154,6 +193,55 @@
       <br>
       <p>Description and media for the project "Drift".</p>
     </div> 
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="/image/drift/drift1.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift2.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift3.jpg"  alt="..." loading="lazy">    
+        <img src="/image/drift/drift4.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift5.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift6.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift7.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift8.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift9.jpg"  alt="..." loading="lazy">
+        <img src="/image/drift/drift10.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift11.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift12.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift13.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift14.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift15.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift16.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift17.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift18.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift19.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift20.jpg"  alt="..." loading="lazy"> 
+        <img src="/image/drift/drift21.jpg"  alt="..." loading="lazy"> 
+      </div>
+    </div>
+    <div class="thumbnail-container">
+      <img src="/image/drift/drift1.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift2.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift3.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift4.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift5.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift6.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift7.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift8.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift9.jpg"  alt="..." loading="lazy" class="thumbnail">
+      <img src="/image/drift/drift10.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift11.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift12.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift13.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift14.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift15.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift16.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift17.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift18.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift19.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift20.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      <img src="/image/drift/drift21.jpg"  alt="..." loading="lazy" class="thumbnail"> 
+      
+    </div>  
   </div>
 
   <div id="withinyetbeyond" class="work">
@@ -196,15 +284,17 @@
     </div>  
   </div>
   <div id="idphoto" class="work">
-    <h1>ID Photo Booth</h1>
-    <div class="work-content">      
+    <h1>ID Photo Booth</h1>  
       <br>
-      <p>Description and media for the project "ID Photo Booth".</p>
+      <div class="work-content">            
+        <p>Description and media for the project "ID Photo Booth".</p>
+      </div>       
       <br>  
       <br> 
       <br>  
-      <h2>Artist's book</h2>
-    </div>
+      <div class="work-content">            
+        <h2>Artist's book</h2>
+      </div>      
     
     <div class="carousel-container">
       <div class="carousel-slide">        
@@ -340,6 +430,5 @@
   </div>  
   </div>
 </div>
-<script src="../script.js" defer></script>
 </body>
 </html>
