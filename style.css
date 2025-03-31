@@ -179,21 +179,44 @@ section#home {
   object-fit: contain;
   opacity: 0;
   transform: scale(0.98);
-  transition: opacity 0.9s ease, transform 1.1s ease;
-  /* mix-blend-mode: multiply; */
+  /* 缩短过渡时间，提高响应速度 */
+  transition: opacity 0.4s ease, transform 0.5s ease;
   z-index: 1; /* 位於背景上方、文字下方 */
   pointer-events: none;
   border: none;
   visibility: hidden;
+  /* 增加性能优化 */
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  /* 使用translate3d触发GPU加速 */
+  transform: scale(0.98) translate3d(0,0,0);
+}
+
+/* 特别优化可能出现卡顿的项目 */
+.pre_work a[href="works/#wwebsal"] + img,
+.pre_work a[href="works/#monster"] + img {
+  /* 预先渲染，避免首次悬停时的延迟 */
+  opacity: 0.01;
+  visibility: visible;
+  /* 特殊性能优化 */
+  contain: layout style paint;
+  /* 更平滑的过渡 */
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .works-list li:hover img {
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.02) translate3d(0,0,0); /* 使用translate3d触发GPU加速 */
   visibility: visible;
 }
 
-
+/* 专门为有卡顿问题的项目优化hover效果 */
+.pre_work a[href="works/#wwebsal"]:hover + img,
+.pre_work a[href="works/#monster"]:hover + img {
+  transform: scale(1.02) translate3d(0,0,0);
+}
 
 /* 淡入動畫 */
 .pre_work a {
@@ -275,12 +298,19 @@ body {
 
 .work-content {
   transform-origin: top left;
-  display: inline-block; 
+  display: block; 
   font-size: 0.6rem;
   line-height: 1.8;
+  padding: 1rem 0rem 1rem 0rem;
   /* color: rgba(0, 0, 255, 1); */
 }
 
+/* 添加carousel-wrapper样式，用于统一布局 */
+.carousel-wrapper {
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+}
 
 .carousel-container {
   position: relative;
@@ -288,16 +318,29 @@ body {
   height: 480px;
   overflow: hidden;
   display: flex;
-  justify-content: flex-start; /* 置左 */
+  justify-content: flex-start;
   align-items: center;
   background: #f4f4f4;  
-  padding: 0rem ;
+  margin: 0;
+  max-width: 100%;
+  border-radius: 2px;
+}
+
+/* 统一边距设置 */
+.carousel-container + .thumbnail-container {
+  margin-top: 10px; /* 固定与carousel-container的距离 */
+}
+
+/* 确保所有作品都使用一致的间距 */
+.work .carousel-container {
+  margin-bottom: 10px;
 }
 
 .carousel-slide {
   position: relative;
   width: 100%;
   height: 100%;
+  max-width: 100%; /* 确保不会溢出父容器 */
 }
 
 /* 主圖圖片設定：置左 + 完整顯示 + 等比例縮放 */
@@ -314,6 +357,7 @@ body {
   opacity: 0;
   transition: opacity 0.6s ease;
   pointer-events: none;
+  border: 3px solid #f4f4f4; /* 添加3px边框，颜色与背景相同，创造内边框效果 */
 }
 
 .carousel-slide img.active {
@@ -321,14 +365,24 @@ body {
   pointer-events: auto;
 }
 
+/* 确保边框在横向和纵向图片上都保持一致 */
+.carousel-slide img[data-orientation="landscape"],
+.carousel-slide img[data-orientation="portrait"] {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  border: 3px solid #f4f4f4;
+}
+
 /* 縮圖列 */
 .thumbnail-container {
   display: flex;
-  justify-content: flex-start; /* 置左 */
-  align-items: center;
-  margin-top: 10px;  
+  justify-content: flex-start; 
+  align-items: flex-start; /* 确保缩略图从顶部开始排列 */
+  margin-top: 10px; /* 与carousel-container底部间距保持一致 */
   flex-wrap: wrap;
   gap: 4px;
+  width: 100%;
 }
 
 .thumbnail {
@@ -352,9 +406,10 @@ body {
 
 
 .work.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
-
 .fullscreen-viewer {
   position: fixed;
   top: 0; left: 0;
@@ -418,15 +473,17 @@ body {
   /* transition: transform 0.4s ease; */
   cursor: zoom-in;
   user-select: none;
+  will-change: transform; /* 提示浏览器将进行transform操作，优化性能 */
 }
 
 .fullscreen-slide.dragging {
-  cursor: grab; /* 拖曳時顯示拖動手 */
+  cursor: grabbing; /* 拖曳时显示抓取手势 */
 }
 
 .fullscreen-viewer img.zoomed {
   transform: scale(2);
-  cursor: zoom-in;
+  cursor: move;
+  will-change: transform;
 }
 .fullscreen-viewer img.zoomed:active {
   cursor: grabbing;
@@ -652,5 +709,26 @@ about a:hover {
   .content {
     padding: 1rem;
     flex: 1;
+  }
+
+  .carousel-container {
+    height: 360px; /* 减小高度 */
+  }
+  
+  .carousel-container + .thumbnail-container {
+    margin-top: 8px; /* 成比例缩小间距 */
+  }
+  
+  .work .carousel-container {
+    margin-bottom: 8px;
+  }
+  
+  .thumbnail-container {
+    gap: 3px; /* 缩小间距 */
+  }
+  
+  .thumbnail {
+    width: 40px;
+    height: 40px;
   }
 }
