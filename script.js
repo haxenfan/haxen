@@ -13,24 +13,96 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+  // 预加载works-list中的图片，优化hover效果
+  const preloadImages = () => {
+    const worksList = document.querySelector('.works-list');
+    if (worksList) {
+      // 特别关注长名称作品，现在已简化为wwebsal
+      const longNameWorks = worksList.querySelectorAll('li a[href="works/#wwebsal"] + img');
+      
+      // 预加载所有图片
+      const allImages = worksList.querySelectorAll('img');
+      
+      // 创建一个图片预加载函数
+      const preloadImage = (img) => {
+        const src = img.getAttribute('src');
+        if (src) {
+          const newImg = new Image();
+          newImg.src = src;
+        }
+      };
+      
+      // 优先预加载长名称作品图片
+      longNameWorks.forEach(preloadImage);
+      
+      // 然后预加载其他图片
+      allImages.forEach(preloadImage);
+    }
+  };
+  
+  // 在页面加载完成后预加载图片
+  preloadImages();
 
-
-    window.addEventListener("hashchange", () => {
-      const id = location.hash.replace("#", "");
+  // 监听侧边栏链接点击
+  document.querySelectorAll(".sidebar a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = link.getAttribute("href").substring(1);
       showWork(id);
     });
-    
-  // 預設作品開啟
-  const defaultTag = window.location.hash.replace('#', '') || 'withinyetbeyond';
-  showWork(defaultTag);
-    // hash 變化時也要載入
-  window.addEventListener('hashchange', () => {
-    const hash = location.hash.replace('#', '');
-    showWork(hash);
   });
-  // 淡入動畫
-  document.querySelectorAll(".pre_work").forEach((el, i) => {
-    el.style.setProperty("--delay", `${i * 0.15}s`);
+
+  // 处理 URL hash 变化
+  window.addEventListener("hashchange", () => {
+    const id = location.hash.replace("#", "");
+    showWork(id);
+  });
+  
+  // 初始化显示 - 改进初始化逻辑，处理从主页点击跳转的情况
+  const initializeWorkDisplay = () => {
+    let hash = window.location.hash.replace('#', '');
+    
+    // 如果URL中有hash值，显示对应作品
+    if (hash) {
+      // 检查是否存在对应ID的作品
+      const targetWork = document.getElementById(hash);
+      if (targetWork) {
+        showWork(hash);
+        return;
+      }
+    }
+    
+    // 如果没有hash或找不到对应作品，显示第一个作品
+    const firstWork = document.querySelector(".work");
+    if (firstWork) {
+      firstWork.classList.add("active");
+      firstWork.style.display = "block";
+      // 更新侧边栏选中状态
+      const firstWorkId = firstWork.id;
+      const firstWorkLink = document.querySelector(`.sidebar a[href="#${firstWorkId}"]`);
+      if (firstWorkLink) {
+        firstWorkLink.classList.add("active");
+      }
+    }
+  };
+  
+  // 执行初始化
+  initializeWorkDisplay();
+  
+  // 优化hover效果，降低长作品名称的悬停延迟
+  document.querySelectorAll(".pre_work").forEach((item, i) => {
+    // 为名称较长的作品设置特别的优化
+    const link = item.querySelector('a');
+    if (link && link.getAttribute('href').includes('wwebsal')) {
+      // 立即设置transform-origin，使变换更快
+      const img = item.querySelector('img');
+      if (img) {
+        img.style.transformOrigin = 'center center';
+      }
+    }
+    
+    // 淡入動畫保持不变
+    item.style.setProperty("--delay", `${i * 0.15}s`);
   });
 
   // 輪播與全螢幕邏輯
@@ -40,6 +112,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = work.querySelector(".carousel-container");
 
     if (!slides.length || !thumbnails.length) return;
+
+    // 检测并标记图片方向
+    function detectImageOrientation() {
+      slides.forEach(img => {
+        // 当图片加载完成后检测方向
+        if (img.complete) {
+          setOrientation(img);
+        } else {
+          img.onload = () => setOrientation(img);
+        }
+      });
+    }
+
+    // 设置图片方向属性
+    function setOrientation(img) {
+      if (img.naturalWidth > img.naturalHeight) {
+        // 横向图片
+        img.setAttribute('data-orientation', 'landscape');
+      } else {
+        // 纵向图片
+        img.setAttribute('data-orientation', 'portrait');
+      }
+    }
+
+    // 执行图片方向检测
+    detectImageOrientation();
 
     let currentIndex = 0;
     let interval;
@@ -102,6 +200,26 @@ document.addEventListener("DOMContentLoaded", () => {
         `<img src="${src}" class="${i === index ? 'active' : ''}" data-index="${i}">`
       ).join("");
 
+      // 获取全屏图片元素
+      const fsImg = fsSlide.querySelector("img");
+      
+      // 复制图片方向属性到全屏图片
+      if (fsImg) {
+        const originalImg = slides[index];
+        if (originalImg.hasAttribute('data-orientation')) {
+          fsImg.setAttribute('data-orientation', originalImg.getAttribute('data-orientation'));
+        } else {
+          // 如果原图还没有设置方向属性，则加载后设置
+          fsImg.onload = () => {
+            if (fsImg.naturalWidth > fsImg.naturalHeight) {
+              fsImg.setAttribute('data-orientation', 'landscape');
+            } else {
+              fsImg.setAttribute('data-orientation', 'portrait');
+            }
+          };
+        }
+      }
+
       fsThumbs.querySelectorAll("img").forEach(img => {
         img.addEventListener("click", () => {
           const idx = parseInt(img.dataset.index);
@@ -109,12 +227,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      const fsImg = fsSlide.querySelector("img");
+      // 拖拽缩放相关变量和事件
       let isDragging = false;
       let startX = 0, startY = 0, currentX = 0, currentY = 0;
       let zoomLevelIndex = 0;
       const zoomLevels = [1, 2.3, 3.8];
       let dragMoved = false;
+      // 添加拖曳加速系数，提高拖曳灵敏度
+      const dragSensitivity = 1.5;
 
       fsSlide.addEventListener("mousedown", (e) => {
         if (!fsImg.classList.contains("zoomed")) return;
@@ -122,19 +242,45 @@ document.addEventListener("DOMContentLoaded", () => {
         dragMoved = false;
         startX = e.clientX - currentX;
         startY = e.clientY - currentY;
+        fsSlide.classList.add("dragging");
         e.preventDefault();
       });
 
       window.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
         dragMoved = true;
-        currentX = e.clientX - startX;
-        currentY = e.clientY - startY;
-        fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate(${currentX}px, ${currentY}px)`;
+        currentX = (e.clientX - startX) * dragSensitivity;
+        currentY = (e.clientY - startY) * dragSensitivity;
+        fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate3d(${currentX}px, ${currentY}px, 0)`;
       });
 
       window.addEventListener("mouseup", () => {
         isDragging = false;
+        fsSlide.classList.remove("dragging");
+      });
+
+      fsSlide.addEventListener("touchstart", (e) => {
+        if (!fsImg.classList.contains("zoomed")) return;
+        isDragging = true;
+        dragMoved = false;
+        startX = e.touches[0].clientX - currentX;
+        startY = e.touches[0].clientY - currentY;
+        fsSlide.classList.add("dragging");
+        e.preventDefault();
+      });
+
+      fsSlide.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        dragMoved = true;
+        currentX = (e.touches[0].clientX - startX) * dragSensitivity;
+        currentY = (e.touches[0].clientY - startY) * dragSensitivity;
+        fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate3d(${currentX}px, ${currentY}px, 0)`;
+        e.preventDefault();
+      });
+
+      fsSlide.addEventListener("touchend", () => {
+        isDragging = false;
+        fsSlide.classList.remove("dragging");
       });
 
       fsSlide.addEventListener("click", () => {
@@ -143,11 +289,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (zoomLevelIndex === 0) {
           fsImg.classList.remove("zoomed");
           fsImg.style.transform = "scale(1)";
+          currentX = 0;
+          currentY = 0;
         } else {
           fsImg.classList.add("zoomed");
           currentX = 0;
           currentY = 0;
-          fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate(0px, 0px)`;
+          fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate3d(0px, 0px, 0)`;
         }
       });
     }
@@ -173,7 +321,9 @@ function showWork(id) {
   const links = document.querySelectorAll(".sidebar a");
   const worksList = document.querySelector('.works-list');
 
-  // 先隐藏所有作品
+  console.log("Showing work with ID:", id); // 调试日志
+
+  // 移除所有作品的激活状态
   works.forEach(w => {
     w.classList.remove("active");
     w.style.display = "none";
@@ -182,81 +332,49 @@ function showWork(id) {
   // 移除所有链接的激活状态
   links.forEach(link => link.classList.remove("active"));
 
+  // 查找目标作品
   const target = document.getElementById(id);
-  const activeLink = document.querySelector(`.sidebar a[href="#${id}"]`);
-
-  if (target) {
-    target.classList.add("active");
-    target.style.display = "block";
+  
+  // 如果找不到目标作品，尝试显示第一个作品
+  if (!target) {
+    console.warn(`Work with ID '${id}' not found, showing first work instead`);
+    const firstWork = document.querySelector(".work");
+    if (firstWork) {
+      firstWork.classList.add("active");
+      firstWork.style.display = "block";
+      
+      // 更新侧边栏状态
+      const firstWorkId = firstWork.id;
+      const firstWorkLink = document.querySelector(`.sidebar a[href="#${firstWorkId}"]`);
+      if (firstWorkLink) {
+        firstWorkLink.classList.add("active");
+      }
+      
+      // 更新 URL hash
+      if (window.location.hash !== `#${firstWorkId}`) {
+        history.replaceState(null, null, `#${firstWorkId}`);
+      }
+    }
+    return;
   }
   
-  if (activeLink) activeLink.classList.add("active");
-
-  const sketchIds = ["systema", "systemb", "theta"];
-  if (sketchIds.includes(id)) {
-    // 清理现有的 p5 实例
-    if (window.currentP5Instance) {
-      window.currentP5Instance.remove();
-      window.currentP5Instance = null;
-    }
-
-    // 清理 sketch 容器
-    const container = document.querySelector('.sketch-container');
-    if (container) {
-      container.innerHTML = '';
-    }
-
-    // 移除所有旧的 sketch 脚本
-    document.querySelectorAll('script[src*="/mycode/"]').forEach(script => {
-      script.remove();
-    });
-
-    // 确保 p5.js 库已加载
-    if (typeof p5 === 'undefined') {
-      const p5Script = document.createElement('script');
-      p5Script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js';
-      p5Script.onload = () => {
-        // p5.js 加载完成后加载 sketch
-        const sketchScript = document.createElement("script");
-        sketchScript.src = `/mycode/${id}.js?t=${new Date().getTime()}`;
-        sketchScript.onload = () => {
-          console.log(`Loaded ${id}.js`);
-        };
-        document.body.appendChild(sketchScript);
-      };
-      document.body.appendChild(p5Script);
-    } else {
-      // 如果 p5.js 已加载，直接加载 sketch
-      const sketchScript = document.createElement("script");
-      sketchScript.src = `/mycode/${id}.js?t=${new Date().getTime()}`;
-      sketchScript.onload = () => {
-        console.log(`Loaded ${id}.js`);
-      };
-      document.body.appendChild(sketchScript);
-    }
-
-    // 隐藏作品列表（如果存在）
-    if (worksList) {
-      worksList.style.display = 'none';
-    }
-  } else {
-    // 如果不是 sketch 作品，显示作品列表（如果存在）
-    if (worksList) {
-      worksList.style.display = 'block';
-    }
+  // 显示目标作品
+  target.classList.add("active");
+  target.style.display = "block";
+  
+  // 更新侧边栏状态
+  const activeLink = document.querySelector(`.sidebar a[href="#${id}"]`);
+  if (activeLink) {
+    activeLink.classList.add("active");
   }
-}
-
-
-
-// 切換 about 區段
-function toggleAboutSection(targetId) {
-  const sections = document.querySelectorAll('.about-section');
-  const buttons = document.querySelectorAll('.about-tabs button');
-  sections.forEach(section => {
-    section.classList.toggle('active', section.id === `${targetId}-section`);
-  });
-  buttons.forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase() === targetId);
-  });
+  
+  // 更新 URL hash (如果需要)
+  if (window.location.hash !== `#${id}`) {
+    history.replaceState(null, null, `#${id}`);
+  }
+  
+  // 作品列表显示逻辑 (如果需要)
+  if (worksList) {
+    worksList.style.display = 'block';
+  }
 }
