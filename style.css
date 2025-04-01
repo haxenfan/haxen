@@ -440,6 +440,10 @@ body {
   user-select: none;
   transform-origin: center center;
   transition: transform 0.3s ease;
+
+  will-change: transform, opacity;
+  transform: translateZ(0); /* 強制使用 GPU */
+  backface-visibility: hidden;
 }
 
 .fullscreen-slide img.zoomed {
@@ -759,3 +763,4 @@ h1, h2, h3, p {
     padding-top: 56.25%;
   }
 }
+
