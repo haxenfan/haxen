@@ -300,6 +300,7 @@ body {
   transform-origin: top left;
   display: block; 
   font-size: 0.6rem;
+  max-width: 720px;
   line-height: 1.8;
   padding: 1rem 0rem 1rem 0rem;
   margin-left: 0; /* 确保文字左对齐 */
@@ -323,10 +324,8 @@ body {
   background: transparent;  
   margin: 0;
   padding: 0;
-  text-align: left; /* 确保内容左对齐 */
+  text-align: left;
 }
-
-
 
 /* 确保所有作品都使用一致的间距 */
 .work .carousel-container {
@@ -340,69 +339,67 @@ body {
   width: 100%; 
   margin: 0;
   padding: 0;
-  text-align: left; /* 确保内容左对齐 */
+  text-align: left;
 }
 
 .carousel-slide img {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
   max-height: 90vh;
   max-width: 100%;
-  width: auto;
-  height: auto;
   border: 3px solid #f4f4f4;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.8s ease-in-out;
   margin: 0;
   padding: 0;
-  float: left; /* 使图片左浮动 */
+  pointer-events: none;
 }
 
 .carousel-slide img.active {
-  display: block;
+  position: relative;
   opacity: 1;
   pointer-events: auto;
-  
+  z-index: 1;
 }
 
 /* 适配不同方向的图片 */
 .carousel-slide img[data-orientation="landscape"] {
   width: 100%;
   height: auto;
-  float: left; /* 确保横向图片左对齐 */
-  
 }
 
 .carousel-slide img[data-orientation="portrait"] {
   width: auto;
   height: auto;
   max-height: 90vh;
-  margin-bottom: 2rem; /* 移除自动居中 */
-  float: left; /* 确保纵向图片左对齐 */
+  margin-bottom: 2rem;
 }
 
-/* 缩略图容器左对齐 */
+/* 缩略图容器样式优化 */
 .thumbnail-container {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 5px; /* 增加默认上边距 */
+  margin-top: 15px;
   width: 100%;
   max-width: 100%;
-  clear: both; /* 确保在浮动元素下方显示 */
+  clear: both;
 }
 
 .thumbnail {
   width: 50px;
   height: 50px;
   aspect-ratio: 1 / 1;
-  object-fit: cover; /* 保比例裁切 */
+  object-fit: cover;
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.3s ease;
-  justify-content: center;
+  transition: all 0.3s ease;
   border: 1.5px solid transparent;
   background: #eee;
 }
@@ -411,8 +408,8 @@ body {
 .thumbnail.active {
   opacity: 1;
   border-color: rgba(30, 30, 255);
+  transform: scale(1.05);
 }
-
 
 .work.active {
   display: flex;
@@ -522,11 +519,9 @@ height: 70vh;
 border: none;
 }
 
-
-
 .preview-image-fx {
   width: 60%;
-  max-width: 500px;
+  max-width: 400px;
   border-radius: 7px;
   box-shadow: 0 6px 18px rgba(0, 0, 255, 0.42);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -537,9 +532,6 @@ border: none;
   transform: scale(1.02);
   box-shadow: 0 10px 24px rgba(0, 0, 255, 0.6);
 }
-
-
-
 
 /* About 頁面樣式 */
 about {
@@ -637,7 +629,6 @@ h1, h2, h3, p {
 }
 
 /* --------- Media Queries --------- */
-
 
 @media (max-width: 768px) {
   #nav-container .main-nav .nav-toggle {
@@ -772,3 +763,45 @@ h1, h2, h3, p {
     height: 40px;
   }
 }
+
+/* Vimeo视频容器样式 */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px 0;
+  background: #000;
+  border: 3px solid #f4f4f4;
+  overflow: hidden;
+}
+
+.video-container::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%; /* 16:9 宽高比 */
+}
+
+.video-container iframe,
+.video-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: contain;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .video-container {
+    margin: 15px 0;
+    border-width: 2px;
+  }
+  
+  .video-container::before {
+    padding-top: 56.25%;
+  }
+}
+
+
