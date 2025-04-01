@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", () => {
   // 載入 nav
   fetch("/nav.html")
@@ -105,216 +107,76 @@ document.addEventListener("DOMContentLoaded", () => {
     item.style.setProperty("--delay", `${i * 0.15}s`);
   });
 
-  // 輪播與全螢幕邏輯
-  document.querySelectorAll(".work").forEach(work => {
-    const slides = work.querySelectorAll(".carousel-slide img");
-    const thumbnails = work.querySelectorAll(".thumbnail");
-    const container = work.querySelector(".carousel-container");
-
-    if (!slides.length || !thumbnails.length) return;
-
-    // 检测并标记图片方向
-    function detectImageOrientation() {
-      slides.forEach(img => {
-        // 当图片加载完成后检测方向
-        if (img.complete) {
-          setOrientation(img);
-        } else {
-          img.onload = () => setOrientation(img);
-        }
-      });
-    }
-
-    // 设置图片方向属性
-    function setOrientation(img) {
-      if (img.naturalWidth > img.naturalHeight) {
-        // 横向图片
-        img.setAttribute('data-orientation', 'landscape');
-      } else {
-        // 纵向图片
-        img.setAttribute('data-orientation', 'portrait');
-      }
-    }
-
-    // 执行图片方向检测
-    detectImageOrientation();
-
+  // 轮播功能
+  const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
+  
+  carouselWrappers.forEach(wrapper => {
+    const carouselContainer = wrapper.querySelector('.carousel-container');
+    const carouselSlide = wrapper.querySelector('.carousel-slide');
+    const thumbnails = wrapper.querySelectorAll('.thumbnail');
+    const images = carouselSlide.querySelectorAll('img');
+    
     let currentIndex = 0;
-    let interval;
-    const fullscreen = document.querySelector(".fullscreen-viewer");
-    const fsSlide = document.querySelector(".fullscreen-slide");
-    const fsThumbs = document.querySelector(".fullscreen-thumbnails");
-    const closeBtn = document.querySelector(".close-btn");
-
-    function updateSlide(index) {
-      slides.forEach((img, i) => img.classList.toggle("active", i === index));
-      thumbnails.forEach((thumb, i) => thumb.classList.toggle("active", i === index));
-      currentIndex = index;
+    let isTransitioning = false;
+    let autoplayInterval;
+    
+    // 初始化显示第一张图片
+    if (images.length > 0) {
+      images[0].classList.add('active');
+      thumbnails[0].classList.add('active');
+    }
+    
+    // 为每个缩略图添加点击事件
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        if (isTransitioning) return;
+        changeImage(index);
+      });
+    });
+    
+    // 图片切换函数
+    function changeImage(index) {
+      if (isTransitioning) return;
       
-      // 不再需要手动调整缩略图容器宽度
-    }
-
-    function goToNext() {
-      updateSlide((currentIndex + 1) % slides.length);
-    }
-
-    function goToPrev() {
-      updateSlide((currentIndex - 1 + slides.length) % slides.length);
-    }
-
-    function resetAutoSlide() {
-      clearInterval(interval);
-      interval = setInterval(goToNext, 5000);
-    }
-
-    thumbnails.forEach((thumb, i) => {
-      thumb.addEventListener("click", () => {
-        updateSlide(i);
-        resetAutoSlide();
-      });
-    });
-
-    let startX = 0;
-    container.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-    container.addEventListener("touchend", e => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) goToNext();
-      else if (endX - startX > 50) goToPrev();
-      resetAutoSlide();
-    });
-
-    updateSlide(0);
-    interval = setInterval(goToNext, 5000);
-
-    slides.forEach((img, i) => {
-      img.addEventListener("click", () => {
-        fullscreen.classList.add("active");
-        showFullscreen(i);
-      });
-    });
-
-    function showFullscreen(index) {
-      const images = Array.from(slides).map(img => img.src);
-      currentIndex = index;
-
-      fsSlide.innerHTML = `<img src="${images[index]}" alt="fullscreen" class="fullscreen-img">`;
-      fsThumbs.innerHTML = images.map((src, i) =>
-        `<img src="${src}" class="${i === index ? 'active' : ''}" data-index="${i}">`
-      ).join("");
-
-      // 获取全屏图片元素
-      const fsImg = fsSlide.querySelector("img");
+      isTransitioning = true;
       
-      // 复制图片方向属性到全屏图片
-      if (fsImg) {
-        const originalImg = slides[index];
-        if (originalImg.hasAttribute('data-orientation')) {
-          fsImg.setAttribute('data-orientation', originalImg.getAttribute('data-orientation'));
-        } else {
-          // 如果原图还没有设置方向属性，则加载后设置
-          fsImg.onload = () => {
-            if (fsImg.naturalWidth > fsImg.naturalHeight) {
-              fsImg.setAttribute('data-orientation', 'landscape');
-            } else {
-              fsImg.setAttribute('data-orientation', 'portrait');
-            }
-          };
-        }
-      }
-
-      fsThumbs.querySelectorAll("img").forEach(img => {
-        img.addEventListener("click", () => {
-          const idx = parseInt(img.dataset.index);
-          showFullscreen(idx);
-        });
-      });
-
-      // 拖拽缩放相关变量和事件
-      let isDragging = false;
-      let startX = 0, startY = 0, currentX = 0, currentY = 0;
-      let zoomLevelIndex = 0;
-      const zoomLevels = [1, 2.3, 3.8];
-      let dragMoved = false;
-      // 添加拖曳加速系数，提高拖曳灵敏度
-      const dragSensitivity = 1.5;
-
-      fsSlide.addEventListener("mousedown", (e) => {
-        if (!fsImg.classList.contains("zoomed")) return;
-        isDragging = true;
-        dragMoved = false;
-        startX = e.clientX - currentX;
-        startY = e.clientY - currentY;
-        fsSlide.classList.add("dragging");
-        e.preventDefault();
-      });
-
-      window.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        dragMoved = true;
-        currentX = (e.clientX - startX) * dragSensitivity;
-        currentY = (e.clientY - startY) * dragSensitivity;
-        fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate3d(${currentX}px, ${currentY}px, 0)`;
-      });
-
-      window.addEventListener("mouseup", () => {
-        isDragging = false;
-        fsSlide.classList.remove("dragging");
-      });
-
-      fsSlide.addEventListener("touchstart", (e) => {
-        if (!fsImg.classList.contains("zoomed")) return;
-        isDragging = true;
-        dragMoved = false;
-        startX = e.touches[0].clientX - currentX;
-        startY = e.touches[0].clientY - currentY;
-        fsSlide.classList.add("dragging");
-        e.preventDefault();
-      });
-
-      fsSlide.addEventListener("touchmove", (e) => {
-        if (!isDragging) return;
-        dragMoved = true;
-        currentX = (e.touches[0].clientX - startX) * dragSensitivity;
-        currentY = (e.touches[0].clientY - startY) * dragSensitivity;
-        fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate3d(${currentX}px, ${currentY}px, 0)`;
-        e.preventDefault();
-      });
-
-      fsSlide.addEventListener("touchend", () => {
-        isDragging = false;
-        fsSlide.classList.remove("dragging");
-      });
-
-      fsSlide.addEventListener("click", () => {
-        if (dragMoved) return;
-        zoomLevelIndex = (zoomLevelIndex + 1) % zoomLevels.length;
-        if (zoomLevelIndex === 0) {
-          fsImg.classList.remove("zoomed");
-          fsImg.style.transform = "scale(1)";
-          currentX = 0;
-          currentY = 0;
-        } else {
-          fsImg.classList.add("zoomed");
-          currentX = 0;
-          currentY = 0;
-          fsImg.style.transform = `scale(${zoomLevels[zoomLevelIndex]}) translate3d(0px, 0px, 0)`;
-        }
-      });
+      // 移除当前图片的active类
+      images[currentIndex].classList.remove('active');
+      thumbnails[currentIndex].classList.remove('active');
+      
+      // 添加新图片的active类
+      currentIndex = index;
+      images[currentIndex].classList.add('active');
+      thumbnails[currentIndex].classList.add('active');
+      
+      // 重置过渡状态
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 800);
     }
-
-    document.addEventListener("keydown", e => {
-      if (!fullscreen.classList.contains("active")) return;
-      const total = slides.length;
-      if (e.key === "ArrowRight") showFullscreen((currentIndex + 1) % total);
-      if (e.key === "ArrowLeft") showFullscreen((currentIndex - 1 + total) % total);
-      if (e.key === "Escape") fullscreen.classList.remove("active");
+    
+    // 自动播放功能
+    function startAutoplay() {
+      autoplayInterval = setInterval(() => {
+        if (!isTransitioning) {
+          const nextIndex = (currentIndex + 1) % images.length;
+          changeImage(nextIndex);
+        }
+      }, 5000);
+    }
+    
+    // 鼠标悬停时暂停自动播放
+    carouselContainer.addEventListener('mouseenter', () => {
+      clearInterval(autoplayInterval);
     });
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        fullscreen.classList.remove("active");
-      });
-    }
+    
+    // 鼠标离开时恢复自动播放
+    carouselContainer.addEventListener('mouseleave', () => {
+      startAutoplay();
+    });
+    
+    // 启动自动播放
+    startAutoplay();
   });
 });
 
