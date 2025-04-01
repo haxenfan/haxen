@@ -288,9 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
-  
-});
-
 function showWork(id) {
   const works = document.querySelectorAll(".work");
   const links = document.querySelectorAll(".sidebar a");
@@ -353,3 +350,5 @@ function showWork(id) {
     worksList.style.display = 'block';
   }
 }
+  
+});
