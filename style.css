@@ -341,12 +341,28 @@ body {
   max-height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.3s ease;
   margin-left: 0;
+  cursor: pointer;
+  user-select: none;
+  will-change: transform;
+  transform-origin: center center;
 }
 
 .carousel-slide img.active {
   opacity: 1;
+  z-index: 10; 
+}
+
+.carousel-slide img.zoomed {
+  transform: scale(2);
+  cursor: grab;
+  transition: none;
+}
+
+.carousel-slide.dragging img.zoomed {
+  cursor: grabbing;
+  transition: none;
 }
 
 /* 缩略图容器样式优化 */
@@ -388,95 +404,89 @@ body {
   flex-direction: column;
   gap: 1.5rem;
 }
+
 .fullscreen-viewer {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(10, 10, 10, 0.96);
+  background: rgba(0, 0, 0, 0.95);
   z-index: 9999;
   display: none;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column; /* 主圖與縮圖垂直排列 */
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .fullscreen-viewer.active {
   display: flex;
 }
 
+.fullscreen-slide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
 .fullscreen-slide img {
-  max-width: 96vw;
-  max-height: 80vh;
+  max-width: 100%;
+  max-height: calc(100vh - 120px); /* 避免縮圖重疊主圖，保留下方縮圖高度 */
   object-fit: contain;
-  transition: opacity 0.3s ease;
+  cursor: zoom-in;
+  user-select: none;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
 }
 
-/* 全屏模式下的横向和纵向图片 */
-.fullscreen-slide img[data-orientation="landscape"] {
-  width: 96vw;
-  height: auto;
+.fullscreen-slide img.zoomed {
+  cursor: grab;
 }
 
-.fullscreen-slide img[data-orientation="portrait"] {
-  width: auto;
-  height: 80vh;
+.fullscreen-slide.dragging img.zoomed {
+  cursor: grabbing;
 }
 
 .fullscreen-thumbnails {
   display: flex;
-  flex-wrap: wrap;
+  gap: 6px;
   justify-content: center;
-  margin-top: 1rem;
-  gap: 4px;
+  align-items: center;
+  padding: 10px 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-x: auto;
+  max-height: 100px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .fullscreen-thumbnails img {
-  width: 50px;
-  height: 50px;
-  aspect-ratio: 1 / 1;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   cursor: pointer;
   opacity: 0.5;
   transition: opacity 0.3s ease;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 }
 
 .fullscreen-thumbnails img.active {
   opacity: 1;
-  border-color: rgba(30, 30, 255);
+  border-color: #ffffff;
 }
 
 .close-btn {
   position: absolute;
-  top: 1rem;
-  right: 2rem;
-  font-size: 2rem;
+  top: 1rem; right: 2rem;
+  font-size: 2.5rem;
   color: white;
   cursor: pointer;
   z-index: 10001;
 }
 
-.fullscreen-viewer img {
-  max-width: 100%;
-  max-height: 80vh;
-  /* transition: transform 0.4s ease; */
-  cursor: zoom-in;
-  user-select: none;
-  will-change: transform; /* 提示浏览器将进行transform操作，优化性能 */
-}
-
-.fullscreen-slide.dragging {
-  cursor: grabbing; /* 拖曳时显示抓取手势 */
-}
-
-.fullscreen-viewer img.zoomed {
-  transform: scale(2);
-  cursor: move;
-  will-change: transform;
-}
-.fullscreen-viewer img.zoomed:active {
-  cursor: grabbing;
-}
 
 .immersive-stage {
 width: 100%;
