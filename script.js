@@ -353,12 +353,18 @@ function showWork(id) {
     worksList.style.display = 'block';
   }
 }
-images.forEach(img => {
-  img.addEventListener('click', (e) => {
-    e.stopPropagation();
-      images.forEach(img => img.style.zIndex = '');
-    img.style.zIndex = '10'; 
-    showFullscreen(img);
+}
+
+function showImage(index) {
+  images.forEach((img, i) => {
+    if (i === index) {
+      img.style.opacity = '1';
+      img.style.pointerEvents = 'auto';
+    } else {
+      img.style.opacity = '0';
+      img.style.pointerEvents = 'none';
+    }
   });
-});
+}
+
 
