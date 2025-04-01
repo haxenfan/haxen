@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   // 載入 nav
   fetch("/nav.html")
