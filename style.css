@@ -317,25 +317,6 @@ body {
 .carousel-container {
   position: relative;
   width: 100%;
-  height: auto;
-  max-height: 100vh;
-  overflow: visible;
-  display: block;
-  background: transparent;  
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
-/* 添加carousel-wrapper样式，用于统一布局 */
-.carousel-wrapper {
-  width: 100%;
-  margin-bottom: 30px;
-  position: relative;
-}
-
-.carousel-container {
-  position: relative;
-  width: 100%;
   height: 600px;
   margin: 0;
   background: #f5f5f5;
@@ -719,39 +700,13 @@ h1, h2, h3, p {
   }
 
   /* 轮播和缩略图移动样式 */
-  .carousel-slide img {
-    max-height: 70vh;
-    border-width: 2px;
-  }
-  
-  .carousel-slide img[data-orientation="portrait"] {
-    width: auto;
-    max-width: 100%;
-    float: left;
-    margin: 0;
-  }
-  
-  .carousel-slide img[data-orientation="landscape"] {
-    width: 100%;
-    height: auto;
-    float: left;
-  }
-  
-  .carousel-container + .thumbnail-container {
-    margin-top: 12px; /* 在移动设备上稍微减小但仍保持较大间距 */
-  }
-  
-  .thumbnail-container {
-    margin-top: 12px;
-    gap: 3px;
-    width: 100%;
-    justify-content: flex-start;
-    clear: both;
+  .carousel-container {
+    height: 400px;
   }
   
   .thumbnail {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -759,7 +714,7 @@ h1, h2, h3, p {
 .video-container {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: 20px 0;
   background: #000;
   border: 3px solid #f4f4f4;
@@ -794,5 +749,3 @@ h1, h2, h3, p {
     padding-top: 56.25%;
   }
 }
-
-
