@@ -353,7 +353,6 @@ function showWork(id) {
     worksList.style.display = 'block';
   }
 }
-}
 
 function showImage(index) {
   images.forEach((img, i) => {
@@ -366,5 +365,4 @@ function showImage(index) {
     }
   });
 }
-
 
