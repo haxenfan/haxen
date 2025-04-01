@@ -353,16 +353,3 @@ function showWork(id) {
     worksList.style.display = 'block';
   }
 }
-
-function showImage(index) {
-  images.forEach((img, i) => {
-    if (i === index) {
-      img.style.opacity = '1';
-      img.style.pointerEvents = 'auto';
-    } else {
-      img.style.opacity = '0';
-      img.style.pointerEvents = 'none';
-    }
-  });
-}
-
