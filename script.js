@@ -106,36 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 轮播功能
-  const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
-  
-  carouselWrappers.forEach(wrapper => {
-    const carouselContainer = wrapper.querySelector('.carousel-container');
-    const carouselSlide = wrapper.querySelector('.carousel-slide');
-    const thumbnails = wrapper.querySelectorAll('.thumbnail');
-    const images = carouselSlide.querySelectorAll('img');
+  document.querySelectorAll('.carousel-wrapper').forEach(wrapper => {
+    const container = wrapper.querySelector('.carousel-container');
+    const slide = container.querySelector('.carousel-slide');
+    const images = slide.querySelectorAll('img');
+    const thumbnails = wrapper.querySelector('.thumbnail-container').querySelectorAll('.thumbnail');
+    
+    if (!images.length || !thumbnails.length) return;
     
     let currentIndex = 0;
     let isTransitioning = false;
     let autoplayInterval;
     
-    // 初始化显示第一张图片
-    if (images.length > 0) {
-      images[0].classList.add('active');
-      thumbnails[0].classList.add('active');
-    }
-    
-    // 为每个缩略图添加点击事件
-    thumbnails.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => {
-        if (isTransitioning) return;
-        changeImage(index);
-      });
-    });
-    
-    // 图片切换函数
-    function changeImage(index) {
+    // 显示指定索引的图片
+    function showImage(index) {
       if (isTransitioning) return;
-      
       isTransitioning = true;
       
       // 移除当前图片的active类
@@ -147,35 +132,163 @@ document.addEventListener("DOMContentLoaded", () => {
       images[currentIndex].classList.add('active');
       thumbnails[currentIndex].classList.add('active');
       
-      // 重置过渡状态
+      // 过渡结束后重置状态
       setTimeout(() => {
         isTransitioning = false;
-      }, 800);
+      }, 300);
     }
     
-    // 自动播放功能
+    // 缩略图点击事件
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        if (index !== currentIndex) {
+          showImage(index);
+        }
+      });
+    });
+    
+    // 自动轮播
     function startAutoplay() {
       autoplayInterval = setInterval(() => {
-        if (!isTransitioning) {
-          const nextIndex = (currentIndex + 1) % images.length;
-          changeImage(nextIndex);
-        }
+        const nextIndex = (currentIndex + 1) % images.length;
+        showImage(nextIndex);
       }, 5000);
     }
     
-    // 鼠标悬停时暂停自动播放
-    carouselContainer.addEventListener('mouseenter', () => {
+    // 停止自动轮播
+    function stopAutoplay() {
       clearInterval(autoplayInterval);
-    });
+    }
     
-    // 鼠标离开时恢复自动播放
-    carouselContainer.addEventListener('mouseleave', () => {
-      startAutoplay();
-    });
+    // 鼠标悬停时暂停自动轮播
+    container.addEventListener('mouseenter', stopAutoplay);
+    container.addEventListener('mouseleave', startAutoplay);
     
-    // 启动自动播放
+    // 初始化显示第一张图片并开始自动轮播
+    showImage(0);
     startAutoplay();
+
+    // 为每个图片添加点击事件
+    images.forEach((img, index) => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showFullscreen(img, images, thumbnails, index);
+      });
+    });
   });
+
+  function showFullscreen(selectedImg, images, thumbnails, selectedIndex) {
+    const fullscreenViewer = document.createElement('div');
+    fullscreenViewer.className = 'fullscreen-viewer';
+  
+    const fullscreenSlide = document.createElement('div');
+    fullscreenSlide.className = 'fullscreen-slide';
+  
+    const fullscreenImg = document.createElement('img');
+    fullscreenImg.src = selectedImg.src;
+    fullscreenImg.alt = selectedImg.alt;
+  
+    const closeBtn = document.createElement('div');
+    closeBtn.className = 'close-btn';
+    closeBtn.innerHTML = '×';
+  
+    const fullscreenThumbnails = document.createElement('div');
+    fullscreenThumbnails.className = 'fullscreen-thumbnails';
+  
+    images.forEach((img, index) => {
+      const thumb = thumbnails[index].cloneNode(true);
+      thumb.addEventListener('click', () => {
+        fullscreenImg.src = img.src;
+        fullscreenThumbnails.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        resetZoom();
+      });
+      fullscreenThumbnails.appendChild(thumb);
+    });
+  
+    fullscreenSlide.appendChild(fullscreenImg);
+    fullscreenViewer.appendChild(closeBtn);
+    fullscreenViewer.appendChild(fullscreenSlide);
+    fullscreenViewer.appendChild(fullscreenThumbnails);
+    document.body.appendChild(fullscreenViewer);
+  
+    fullscreenThumbnails.querySelectorAll('img')[selectedIndex].classList.add('active');
+    requestAnimationFrame(() => fullscreenViewer.classList.add('active'));
+  
+    function closeFullscreen() {
+      fullscreenViewer.classList.remove('active');
+      setTimeout(() => document.body.removeChild(fullscreenViewer), 200);
+    }
+  
+    closeBtn.addEventListener('click', closeFullscreen);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeFullscreen();
+    });
+  
+    let isDragging = false;
+    let dragged = false; // 追蹤是否發生拖曳
+    let startX, startY, translateX = 0, translateY = 0, scale = 1;
+  
+    const resetZoom = () => {
+      scale = 1;
+      translateX = translateY = 0;
+      fullscreenImg.style.transform = '';
+      fullscreenSlide.style.cursor = 'zoom-in';
+      fullscreenImg.classList.remove('zoomed');
+    };
+  
+    fullscreenSlide.addEventListener('mousedown', (e) => {
+      if (scale > 1) {
+        isDragging = true;
+        dragged = false; // 每次mousedown重置dragged狀態
+        startX = e.clientX;
+        startY = e.clientY;
+        fullscreenSlide.style.cursor = 'grabbing';
+        e.preventDefault();
+      }
+    });
+  
+    fullscreenSlide.addEventListener('mousemove', (e) => {
+      if (!isDragging || scale === 1) return;
+      const dx = (e.clientX - startX) / scale;
+      const dy = (e.clientY - startY) / scale;
+      translateX += dx;
+      translateY += dy;
+      fullscreenImg.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+      startX = e.clientX;
+      startY = e.clientY;
+      dragged = true; // 確認已發生拖曳
+    });
+  
+    fullscreenSlide.addEventListener('mouseup', (e) => {
+      if (scale > 1) fullscreenSlide.style.cursor = 'grab';
+      setTimeout(() => {
+        isDragging = false; // 延遲防止立即觸發點擊
+      }, 10);
+    });
+  
+    fullscreenSlide.addEventListener('mouseleave', () => {
+      isDragging = false;
+      if (scale > 1) fullscreenSlide.style.cursor = 'grab';
+    });
+  
+    fullscreenSlide.addEventListener('click', (e) => {
+      if (dragged) {
+        dragged = false; // 已拖曳，取消點擊動作
+        return;
+      }
+      if (scale === 1) {
+        scale = 2;
+        fullscreenImg.classList.add('zoomed');
+        fullscreenSlide.style.cursor = 'grab';
+        fullscreenImg.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+      } else {
+        resetZoom();
+      }
+    });
+  }
+  
+  
 });
 
 function showWork(id) {
@@ -240,3 +353,12 @@ function showWork(id) {
     worksList.style.display = 'block';
   }
 }
+images.forEach(img => {
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+      images.forEach(img => img.style.zIndex = '');
+    img.style.zIndex = '10'; 
+    showFullscreen(img);
+  });
+});
+
