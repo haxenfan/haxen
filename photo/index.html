@@ -32,8 +32,9 @@
       #photo-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* ── Each cell: natural aspect ratio ── */
+    /* ── Each cell: fixed height, object-fit covers it ── */
     .photo-cell {
+      height: 220px;           /* uniform row height */
       overflow: hidden;
       cursor: pointer;
       background: #e8e8e8;
@@ -41,7 +42,8 @@
 
     .photo-cell img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
       transition: transform 0.35s ease, opacity 0.35s ease;
     }
