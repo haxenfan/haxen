@@ -1,19 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Photo | Haxen</title>
   <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../style.css">
-<script src="../script.js" defer></script>
+  <script src="../script.js" defer></script>
 
+  <style>
+    /* ── Photo gallery page ── */
+
+    .photo-main {
+      padding-top: 4rem;       /* clear fixed nav */
+      padding-bottom: 3rem;
+      width: 100%;
+    }
+
+    /* ── Grid ── */
+    #photo-grid {
+      display: grid;
+      /* 4 equal columns; shrinks to fewer on narrow viewports */
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      width: 100%;
+    }
+
+    @media (max-width: 900px) {
+      #photo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      #photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Each cell: fixed height, object-fit covers it ── */
+    .photo-cell {
+      height: 220px;           /* uniform row height */
+      overflow: hidden;
+      cursor: pointer;
+      background: #e8e8e8;
+    }
+
+    .photo-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .photo-cell:hover img {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+
+    /* ── Lightbox overlay ── */
+    #photo-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.93);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #photo-lightbox.open {
+      display: flex;
+    }
+
+    #photo-lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+      display: block;
+      /* subtle entrance */
+      animation: lb-appear 0.2s ease;
+    }
+
+    @keyframes lb-appear {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* Close button — top-right, consistent with existing .close-btn style */
+    #lb-close {
+      position: fixed;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      z-index: 10000;
+      background: none;
+      border: none;
+      font-family: 'Tex Gyre Cursor', monospace;
+      /* blue glow on hover — matches site identity */
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    #lb-close:hover {
+      color: transparent;
+      text-shadow:
+        0 0 6px rgba(255,255,255,0.7),
+        0 0 12px rgba(255,255,255,1),
+        0 0 24px rgba(0,0,255,0.8),
+        0 0 32px rgba(255,255,255,0.85),
+        0 0 152px rgba(0,0,255,1);
+    }
+  </style>
 </head>
 <body>
   <div id="nav-container"></div>
 
-  <main>
-    <h1>Photography</h1>
-    <p>This section presents a collection of photographs taken by Haxen.</p>
+  <main class="photo-main">
+    <div id="photo-grid"></div>
   </main>
+
+  <!-- Lightbox -->
+  <div id="photo-lightbox" role="dialog" aria-modal="true" aria-label="放大檢視">
+    <button id="lb-close" aria-label="關閉">×</button>
+    <img id="lb-img" src="" alt="" />
+  </div>
+
+  <script>
+    (function () {
+      // ── Photo list ──────────────────────────────────────────────────────
+      // All filenames under photo/photos/
+      const photos = [
+        "selectphoto.jpg",
+        "selectphoto-2.jpg",
+        "selectphoto-3.jpg",
+        "selectphoto-4.jpg",
+        "selectphoto-5.jpg",
+        "selectphoto-6.jpg",
+        "selectphoto-7.jpg",
+        "selectphoto-8.jpg",
+        "selectphoto-9.jpg",
+        "selectphoto-10.jpg",
+        "selectphoto-11.jpg",
+        "selectphoto-12.jpg",
+        "selectphoto-13.jpg",
+        "selectphoto-14.jpg",
+        "selectphoto-15.jpg",
+        "selectphoto-16.jpg",
+        "selectphoto-17.jpg",
+        "selectphoto-18.jpg",
+        "selectphoto-19.jpg",
+        "selectphoto-20.jpg",
+        "selectphoto-21.jpg",
+        "selectphoto-22.jpg",
+        "selectphoto-23.jpg",
+        "selectphoto-24.jpg",
+        "selectphoto-25.jpg",
+        "selectphoto-26.jpg",
+        "selectphoto-27.jpg",
+        "selectphoto-28.jpg",
+        "selectphoto-29.jpg",
+        "selectphoto-30.jpg",
+        "selectphoto-31.jpg",
+        "selectphoto-32.jpg",
+        "selectphoto-33.jpg",
+        "selectphoto-34.jpg",
+        "selectphoto-35.jpg",
+        "selectphoto-36.jpg",
+        "selectphoto-37.jpg",
+        "selectphoto-38.jpg",
+        "selectphoto-39.jpg",
+        "selectphoto-40.jpg",
+        "selectphoto-41.jpg",
+        "selectphoto-42.jpg",
+        "selectphoto-43.jpg",
+        "selectphoto-44.jpg",
+        "selectphoto-45.jpg"
+      ];
+
+      // ── Fisher-Yates shuffle ────────────────────────────────────────────
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      // ── Render grid ─────────────────────────────────────────────────────
+      const grid = document.getElementById("photo-grid");
+      const shuffled = shuffle(photos);
+
+      shuffled.forEach(function (filename) {
+        const cell = document.createElement("div");
+        cell.className = "photo-cell";
+
+        const img = document.createElement("img");
+        img.src = "photos/" + filename;
+        img.alt = "";
+        img.loading = "lazy";
+
+        cell.appendChild(img);
+        grid.appendChild(cell);
+
+        cell.addEventListener("click", function () {
+          openLightbox("photos/" + filename);
+        });
+      });
+
+      // ── Lightbox ────────────────────────────────────────────────────────
+      const lightbox = document.getElementById("photo-lightbox");
+      const lbImg    = document.getElementById("lb-img");
+      const lbClose  = document.getElementById("lb-close");
+
+      function openLightbox(src) {
+        lbImg.src = src;
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("open");
+        document.body.style.overflow = "";
+        // clear src after transition to free memory
+        setTimeout(function () { lbImg.src = ""; }, 200);
+      }
+
+      lbClose.addEventListener("click", closeLightbox);
+
+      // Click outside image also closes
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // Keyboard: Escape closes
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && lightbox.classList.contains("open")) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
